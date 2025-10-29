@@ -45,7 +45,7 @@ setupRerenderHandlers(homeDashboardPromise, statisticsDashboardPromise, reevalua
 setupRefocusHandlers();
 
 async function setupRerenderHandlers(homeDBPromise, statisticsDBPromise, reevaluationDBPromise, tablePromise) {
-    var [homeDB, statisticsDB, reevaluationDB, transactionsTable] = await Promise.all(
+    const [homeDB, statisticsDB, reevaluationDB, transactionsTable] = await Promise.all(
         [homeDBPromise, statisticsDBPromise, reevaluationDBPromise, tablePromise]
     );
     window.addEventListener('countryChanged', () => {
@@ -57,7 +57,7 @@ async function setupRerenderHandlers(homeDBPromise, statisticsDBPromise, reevalu
 }
 
 async function setupDataTableModalHandlers(tablePromise, modalsPromise) {
-    var table = await tablePromise;
+    const table = await tablePromise;
 
     $('#search-form').on('submit', async function (event) {
         event.preventDefault();
@@ -66,30 +66,30 @@ async function setupDataTableModalHandlers(tablePromise, modalsPromise) {
         }
     });
 
-    var modals = await modalsPromise;
-    var updateTransactionModal = modals.find(m => m._element.id == 'updateTransaction-modal');
-    var deleteTransactionModal = modals.find(m => m._element.id == 'deleteTransaction-modal');
+    const modals = await modalsPromise;
+    const updateTransactionModal = modals.find(m => m._element.id == 'updateTransaction-modal');
+    const deleteTransactionModal = modals.find(m => m._element.id == 'deleteTransaction-modal');
 
     initUpdateTransactionModal(updateTransactionModal, table);
     initDeleteTransactionModal(deleteTransactionModal, table);
 
-    var idUpdate= document.getElementById('updateTransaction_id');
-    var labelUpdate = document.getElementById('updateTransaction-label');
-    var title = document.getElementById('updateTransaction_title');
-    var dateTime = document.getElementById('updateTransaction_datetime');
-    var amount = document.getElementById('updateTransaction_amount');
-    var isHappy = document.getElementById('updateTransaction_isHappyTrue');
-    var isUnhappy = document.getElementById('updateTransaction_isHappyFalse');
-    var isNecessary = document.getElementById('updateTransaction_isNecessaryTrue');
-    var isUnnecessary = document.getElementById('updateTransaction_isNecessaryFalse');
+    const idUpdate= document.getElementById('updateTransaction_id');
+    const labelUpdate = document.getElementById('updateTransaction-label');
+    const title = document.getElementById('updateTransaction_title');
+    const dateTime = document.getElementById('updateTransaction_datetime');
+    const amount = document.getElementById('updateTransaction_amount');
+    const isHappy = document.getElementById('updateTransaction_isHappyTrue');
+    const isUnhappy = document.getElementById('updateTransaction_isHappyFalse');
+    const isNecessary = document.getElementById('updateTransaction_isNecessaryTrue');
+    const isUnnecessary = document.getElementById('updateTransaction_isNecessaryFalse');
 
-    var labelDelete = document.getElementById('deleteTransaction-label');
-    var idDelete = document.getElementById('deleteTransaction_id');     
+    const labelDelete = document.getElementById('deleteTransaction-label');
+    const idDelete = document.getElementById('deleteTransaction_id');     
 
     table.on('click keydown', 'svg', function (event) {
         if (event.type === 'click' || event.type === 'keydown' && event.key === 'Enter') {
-            var row = table.row(event.target.closest('tr'));
-            var data = row.data();
+            const row = table.row(event.target.closest('tr'));
+            const data = row.data();
             switch (this.dataset.icon) {
                 case 'edit':                
                     idUpdate.value = data.id;
@@ -113,37 +113,37 @@ async function setupDataTableModalHandlers(tablePromise, modalsPromise) {
 
     });
 
-    var tableContainer = document.getElementById('table-container');
+    const tableContainer = document.getElementById('table-container');
     tableContainer.style = '';
     table.columns.adjust();
 }
 
 async function setupModalHandlers(modalsPromise, homeDBPromise, reevalDBPromise) {
-    var modals = await modalsPromise;
-    var homeDashboard = await homeDBPromise;    
-    var addCategoryModal = modals.find(m => m._element.id == 'addCategory-modal');
-    var updateCategoryModal = modals.find(m => m._element.id == 'updateCategory-modal');
-    var deleteCategoryModal = modals.find(m => m._element.id == 'deleteCategory-modal');
-    var addTransactionModal = modals.find(m => m._element.id == 'addTransaction-modal');
+    const modals = await modalsPromise;
+    const homeDashboard = await homeDBPromise;    
+    const addCategoryModal = modals.find(m => m._element.id == 'addCategory-modal');
+    const updateCategoryModal = modals.find(m => m._element.id == 'updateCategory-modal');
+    const deleteCategoryModal = modals.find(m => m._element.id == 'deleteCategory-modal');
+    const addTransactionModal = modals.find(m => m._element.id == 'addTransaction-modal');
 
     initAddCategoryModal(addCategoryModal, homeDashboard);
     initUpdateCategoryModal(updateCategoryModal, homeDashboard);
     initAddTransactionModal(addTransactionModal, homeDashboard); 
-    var reevalDashboard = await reevalDBPromise;
+    const reevalDashboard = await reevalDBPromise;
     initDeleteCategoryModal(deleteCategoryModal, homeDashboard, reevalDashboard);  
 
     document.getElementById('close-menu').onclick = closeMenu;  
     document.getElementById('details-menu').onclick = function () {
-        var id = menu.dataset.categoryid;
+        const id = menu.dataset.categoryid;
         window.location.href = PAGE_ROUTES.CATEGORY(id);
     }
     homeDashboard.attachMenuHandlers();
 }
 
 function initAddCategoryModal(modal, homeDashboard) {
-    var addCategoryModalType = document.getElementById('addCategory_type');
-    var addCategoryModalFiscalPlanId = document.getElementById('addCategory_fiscalPlanId');
-    var form = document.getElementById('addCategory-form');
+    const addCategoryModalType = document.getElementById('addCategory_type');
+    const addCategoryModalFiscalPlanId = document.getElementById('addCategory_fiscalPlanId');
+    const form = document.getElementById('addCategory-form');
     form.addEventListener('submit', async function (event) {
         event.preventDefault();            
         if (modal._isShown && $(this).valid()) {
@@ -158,7 +158,7 @@ function initAddCategoryModal(modal, homeDashboard) {
 
     $('.addCategory-icon').on('click keydown', function (event) {
         if (event.type === 'click' || event.type === 'keydown' && event.key === 'Enter') {
-            var type = $(this).closest('.accordion')[0].dataset.type;
+            const type = $(this).closest('.accordion')[0].dataset.type;
             addCategoryModalType.value = type;
             addCategoryModalFiscalPlanId.value = fiscalPlanId.value;
             modal.show();
@@ -167,13 +167,13 @@ function initAddCategoryModal(modal, homeDashboard) {
 }
 
 function initUpdateCategoryModal(modal, homeDashboard) {
-    var updateCategoryModalLabel = document.getElementById('updateCategory-label');
-    var updateCategoryModalId = document.getElementById('updateCategory_id');
-    var updateCategoryModalName = document.getElementById('updateCategory_name');
-    var updateCategoryModalBudget = document.getElementById('updateCategory_budget');
-    var updateCategoryModalType = document.getElementById('updateCategory_type');
-    var updateCategoryModalFiscalPlanId = document.getElementById('updateCategory_fiscalPlanId');
-    var form = document.getElementById('updateCategory-form');
+    const updateCategoryModalLabel = document.getElementById('updateCategory-label');
+    const updateCategoryModalId = document.getElementById('updateCategory_id');
+    const updateCategoryModalName = document.getElementById('updateCategory_name');
+    const updateCategoryModalBudget = document.getElementById('updateCategory_budget');
+    const updateCategoryModalType = document.getElementById('updateCategory_type');
+    const updateCategoryModalFiscalPlanId = document.getElementById('updateCategory_fiscalPlanId');
+    const form = document.getElementById('updateCategory-form');
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (modal._isShown && $(this).valid()) {
@@ -188,7 +188,7 @@ function initUpdateCategoryModal(modal, homeDashboard) {
         }
     });
 
-    var editIcon = document.getElementById('edit-menu');
+    const editIcon = document.getElementById('edit-menu');
     editIcon.addEventListener('click', function () {
         let data = homeDashboard.getCategory(menu.dataset.categoryid);
         updateCategoryModalLabel.textContent = `Edit '${data.name}'`;
@@ -202,10 +202,10 @@ function initUpdateCategoryModal(modal, homeDashboard) {
 }
 
 function initDeleteCategoryModal(modal, homeDashboard, reevalDashboard) {    
-    var deleteCategoryModalLabel = document.getElementById('deleteCategory-label');
-    var deleteCategoryModalId = document.getElementById('deleteCategory_id');
-    var deleteCategoryModalType = document.getElementById('deleteCategory_type');
-    var form = document.getElementById('deleteCategory-form');
+    const deleteCategoryModalLabel = document.getElementById('deleteCategory-label');
+    const deleteCategoryModalId = document.getElementById('deleteCategory_id');
+    const deleteCategoryModalType = document.getElementById('deleteCategory_type');
+    const form = document.getElementById('deleteCategory-form');
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (modal._isShown) {
@@ -224,9 +224,9 @@ function initDeleteCategoryModal(modal, homeDashboard, reevalDashboard) {
             messageBox.addAndShow(response.message, response.isSuccess ? '#check-icon' : '#cross-icon'); 
         }
     });
-    var deleteIcon = document.getElementById('delete-menu');
+    const deleteIcon = document.getElementById('delete-menu');
     deleteIcon.addEventListener('click', function () {
-        var data = homeDashboard.getCategory(menu.dataset.categoryid);
+        const data = homeDashboard.getCategory(menu.dataset.categoryid);
         deleteCategoryModalLabel.textContent = `Delete '${data.name}'`;
         deleteCategoryModalType.value = data.categoryType;
         deleteCategoryModalId.value = menu.dataset.categoryid;
@@ -235,8 +235,8 @@ function initDeleteCategoryModal(modal, homeDashboard, reevalDashboard) {
 }
 
 function initAddTransactionModal(modal, homeDashboard) {
-    var addTransactionModalCategoryId = document.getElementById('addTransaction_categoryId');
-    var form = document.getElementById('addTransaction-form');
+    const addTransactionModalCategoryId = document.getElementById('addTransaction_categoryId');
+    const form = document.getElementById('addTransaction-form');
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (modal._isShown && $(this).valid()) {
@@ -249,7 +249,7 @@ function initAddTransactionModal(modal, homeDashboard) {
         }
     });
 
-    var addIcon = document.getElementById('add-menu');
+    const addIcon = document.getElementById('add-menu');
     addIcon.addEventListener('click', function () {
         addTransactionModalCategoryId.value = menu.dataset.categoryid;
         modal.show();
@@ -257,7 +257,7 @@ function initAddTransactionModal(modal, homeDashboard) {
 }
 
 function initUpdateTransactionModal(modal, table) {
-    var form = document.getElementById('updateTransaction-form');
+    const form = document.getElementById('updateTransaction-form');
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (modal._isShown && $(this).valid()) {
@@ -285,7 +285,7 @@ function initUpdateTransactionModal(modal, table) {
 }
 
 function initDeleteTransactionModal(modal, table) {
-    var form = document.getElementById('deleteTransaction-form');
+    const form = document.getElementById('deleteTransaction-form');
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (modal._isShown) {
@@ -307,8 +307,8 @@ function initDeleteTransactionModal(modal, table) {
 
 function closeMenu() {
     if (menu.classList.contains('active')) {
-        var id = menu.dataset.categoryid;
-        var borderBox = document.getElementById(`category_${id}`).querySelector('.border-animation');
+        const id = menu.dataset.categoryid;
+        const borderBox = document.getElementById(`category_${id}`).querySelector('.border-animation');
         borderBox.classList.remove('border-rotate');
         menu.dataset.categoryid = 0;
         menu.classList.remove('active');
@@ -316,26 +316,26 @@ function closeMenu() {
 }
 
 function setupFlipContainer() {
-    var faces = ['face_0', 'face_1', 'face_2', 'face_3'];
-    var flipContainer = document.getElementById('flip-container-inner');
-    var currentSideIndex = 0;
-    var currentDeg = 0;
+    const faces = ['face_0', 'face_1', 'face_2', 'face_3'];
+    const flipContainer = document.getElementById('flip-container-inner');
+    let currentSideIndex = 0;
+    let currentDeg = 0;
 
     $('#action-sidebar').on('click', '.sidebar-button-container', function () {
         this.blur();
-        var index = parseInt(this.dataset.index);
+        const index = parseInt(this.dataset.index);
         if (currentSideIndex === index) {
             return;
         }
 
-        var currentFace = document.getElementById(faces[currentSideIndex]);
-        var nextFace = document.getElementById(faces[index]);
+        const currentFace = document.getElementById(faces[currentSideIndex]);
+        const nextFace = document.getElementById(faces[index]);
 
         if (currentSideIndex == 0) {
             closeMenu();
         }
 
-        var degreeDiff = shortestAngle(currentSideIndex, index);
+        const degreeDiff = shortestAngle(currentSideIndex, index);
         currentDeg += degreeDiff;       
 
         flipContainer.style = `transform: rotateY(${currentDeg}deg)`;
@@ -357,7 +357,7 @@ function setupFlipContainer() {
 }
 
 function setupRefocusHandlers() {
-    var lastFocus;
+    let lastFocus;
     $('.modal').on('show.bs.modal', function () {
         lastFocus = document.activeElement;
     });
@@ -367,7 +367,7 @@ function setupRefocusHandlers() {
         }
     });
 
-    var closeButton = menu.querySelector('#close-button-menu');
+    const closeButton = menu.querySelector('#close-button-menu');
 
     menu.addEventListener('transitionend', function (event) {
         if (event.propertyName === 'visibility') {
@@ -390,32 +390,32 @@ function setupRefocusHandlers() {
 async function getTransactionsTable() {
     try {
         const { default: DataTable } = await import(/* webpackChunkName: "datatables" */'datatables.net-bs5');
-        var lastAjaxData = {
+        let lastAjaxData = {
             start: 0,     
             lastId: null,
             lastValue: null
         };
-        var dataTable = new DataTable('#transactions-table', {
+        const dataTable = new DataTable('#transactions-table', {
             processing: true,
             serverSide: true,
             deferLoading: 0,
             ajax: function (data, callback, settings) {
-                var formData = new FormData(document.getElementById('search-form'));
-                var table = new $.fn.dataTable.Api(settings);
+                const formData = new FormData(document.getElementById('search-form'));
+                const table = new $.fn.dataTable.Api(settings);
 
-                var searchString = formData.get('SearchString');
-                var minDate = formData.get('MinDate');
-                var maxDate = formData.get('MaxDate');
-                var fiscalPlanId = formData.get('FiscalPlanId');
-                var categoryId = formData.get('CategoryId');
-                var minAmount = formData.get('MinAmount');
-                var maxAmount = formData.get('MaxAmount');
+                const searchString = formData.get('SearchString');
+                const minDate = formData.get('MinDate');
+                const maxDate = formData.get('MaxDate');
+                const fiscalPlanId = formData.get('FiscalPlanId');
+                const categoryId = formData.get('CategoryId');
+                const minAmount = formData.get('MinAmount');
+                const maxAmount = formData.get('MaxAmount');
 
-                var isPrevious = false;
-                var lastId = null;
-                var lastValue = null;                
-                var orderBy = null;
-                var orderDirection = null;
+                let isPrevious = false;
+                let lastId = null;
+                let lastValue = null;                
+                let orderBy = null;
+                let orderDirection = null;
 
                 if (data.order?.[0]) {
                     orderBy = data.order[0].name;
@@ -441,7 +441,7 @@ async function getTransactionsTable() {
                     }
                 }
                                 
-                var requestData = {
+                const requestData = {
                     draw: data.draw,
                     start: data.start,
                     pageSize: data.length,
@@ -581,13 +581,13 @@ async function getReevaluationDashboard(token) {
 
 async function getTooltips() {
     const Tooltip = (await import(/* webpackChunkName: "bootstrap-tooltips" */'bootstrap/js/dist/tooltip')).default;
-    var tooltipElements = document.querySelectorAll('.tooltipped');
-    var tooltips = [...tooltipElements].map(element => new Tooltip(element, {
+    const tooltipElements = document.querySelectorAll('.tooltipped');
+    const tooltips = [...tooltipElements].map(element => new Tooltip(element, {
         container: 'body',
         delay: { show: 500, hide: 0 },
         offset: [0, 10],
         placement: (instance, _) => {
-            var query = window.matchMedia(`(min-width: ${smallScreenSize}px)`);
+            const query = window.matchMedia(`(min-width: ${smallScreenSize}px)`);
             return instance._element.classList.contains('sidebar-button-container')
                 && query.matches ? 'right' : 'top';
         },

@@ -29,12 +29,12 @@ export default class ReevaluationDashboard {
     }
 
     async #reevaluateTransaction(form) {
-        var formData = new FormData(form);        
-        var id = formData.get('Id');
-        var element = document.getElementById(`reeval_transaction_${id}`);
-        var previousIsHappy = element.dataset.ishappy === 'true';
-        var previousIsNecessary = element.dataset.isnecessary === 'true';
-        var responsePatch = await patchTransactionEvaluation(formData, previousIsHappy, previousIsNecessary, this.#antiforgeryToken);
+        const formData = new FormData(form);        
+        const id = formData.get('Id');
+        const element = document.getElementById(`reeval_transaction_${id}`);
+        const previousIsHappy = element.dataset.ishappy === 'true';
+        const previousIsNecessary = element.dataset.isnecessary === 'true';
+        const responsePatch = await patchTransactionEvaluation(formData, previousIsHappy, previousIsNecessary, this.#antiforgeryToken);
         messageBox.addAndShow(responsePatch.message, responsePatch.isSuccess ? '#check-icon' : '#cross-icon');
         
         if (responsePatch.isSuccess) {
@@ -129,7 +129,7 @@ export default class ReevaluationDashboard {
     }
 
     #createTransactionElement(transaction) {
-        var transactionBody = document.createElement('div');
+        const transactionBody = document.createElement('div');
 
         transactionBody.id = `reeval_transaction_${transaction.id}`;
         transactionBody.className = 'transaction-body';
@@ -139,52 +139,52 @@ export default class ReevaluationDashboard {
         transactionBody.setAttribute('data-amount', transaction.amount);
         transactionBody.setAttribute('data-date', transaction.dateTime);
 
-        var titleDiv = document.createElement('div');
+        const titleDiv = document.createElement('div');
         titleDiv.textContent = decodeURIComponent(transaction.title);
 
-        var dateDiv = document.createElement('div');
+        const dateDiv = document.createElement('div');
         dateDiv.id = `transaction_date_${transaction.id}`;
         dateDiv.textContent = new Date(transaction.dateTime).toLocaleDateString(window.userLocale);
 
-        var amountDiv = document.createElement('div');
+        const amountDiv = document.createElement('div');
         amountDiv.id = `transaction_amount_${transaction.id}`;
         amountDiv.textContent = window.userNumberFormat.format(transaction.amount);
 
-        var transactionForm = document.createElement('form');
+        const transactionForm = document.createElement('form');
         transactionForm.id = `reevaluate-transaction-form_${transaction.id}`;
         transactionForm.setAttribute('novalidate', 'novalidate');
         transactionForm.addEventListener('submit', this.#onReevaluate.bind(this));
 
-        var hiddenInput = document.createElement('input');
+        const hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
         hiddenInput.value = transaction.id;
         hiddenInput.id = `reeval_transaction_${transaction.id}`;
         hiddenInput.name = 'Id';
 
-        var wrapperDiv = document.createElement('div');
+        const wrapperDiv = document.createElement('div');
         wrapperDiv.className = 'reevalIconsContainer';
 
-        var innerWrapper1 = document.createElement('div');
+        const innerWrapper1 = document.createElement('div');
         innerWrapper1.className = 'd-flex align-items-center';
 
-        var isHappyTrueInput = document.createElement('input');
+        const isHappyTrueInput = document.createElement('input');
         isHappyTrueInput.type = 'radio';
         isHappyTrueInput.value = 'true';
         isHappyTrueInput.id = `isHappyTrue_${transaction.id}`;
         isHappyTrueInput.className = 'iconRadioButton';
         isHappyTrueInput.name = 'IsHappy';
 
-        var isHappyTrueLabel = document.createElement('label');
+        const isHappyTrueLabel = document.createElement('label');
         isHappyTrueLabel.className = 'reevalIconLabel';
         isHappyTrueLabel.htmlFor = `isHappyTrue_${transaction.id}`;       
 
-        var isHappyImg = document.createElement('img');
+        const isHappyImg = document.createElement('img');
         isHappyImg.src = '/dist/img/happy-emote.svg';
         isHappyImg.height = 25;
         isHappyImg.width = 25;
         isHappyImg.className = 'reevalIcon';
 
-        var isHappyFalseInput = document.createElement('input');
+        const isHappyFalseInput = document.createElement('input');
         isHappyFalseInput.type = 'radio';
         isHappyFalseInput.value = 'false';
         isHappyFalseInput.id = `isHappyFalse_${transaction.id}`;
@@ -192,37 +192,37 @@ export default class ReevaluationDashboard {
         isHappyFalseInput.checked = true;
         isHappyFalseInput.name = 'IsHappy';
 
-        var isHappyFalseLabel = document.createElement('label');
+        const isHappyFalseLabel = document.createElement('label');
         isHappyFalseLabel.className = 'reevalIconLabel';
         isHappyFalseLabel.htmlFor = `isHappyFalse_${transaction.id}`;
 
-        var isUnhappyImg = document.createElement('img');
+        const isUnhappyImg = document.createElement('img');
         isUnhappyImg.src = '/dist/img/sad-emote.svg';
         isUnhappyImg.height = 25;
         isUnhappyImg.width = 25;
         isUnhappyImg.className = 'reevalIcon';
 
-        var innerWrapper2 = document.createElement('div');
+        const innerWrapper2 = document.createElement('div');
         innerWrapper2.className = 'd-flex align-items-center';
 
-        var isNecessaryTrueInput = document.createElement('input');
+        const isNecessaryTrueInput = document.createElement('input');
         isNecessaryTrueInput.type = 'radio';
         isNecessaryTrueInput.value = 'true';
         isNecessaryTrueInput.id = `isNecessaryTrue_${transaction.id}`;
         isNecessaryTrueInput.className = 'iconRadioButton';
         isNecessaryTrueInput.name = 'IsNecessary';
 
-        var isNecessaryTrueLabel = document.createElement('label');
+        const isNecessaryTrueLabel = document.createElement('label');
         isNecessaryTrueLabel.className = 'reevalIconLabel';
         isNecessaryTrueLabel.htmlFor = `isNecessaryTrue_${transaction.id}`;       
 
-        var isNecessaryImg = document.createElement('img');
+        const isNecessaryImg = document.createElement('img');
         isNecessaryImg.src = '/dist/img/chart-growth.svg';
         isNecessaryImg.height = 25;
         isNecessaryImg.width = 25;
         isNecessaryImg.className = 'reevalIcon';
 
-        var isNecessaryFalseInput = document.createElement('input');
+        const isNecessaryFalseInput = document.createElement('input');
         isNecessaryFalseInput.type = 'radio';
         isNecessaryFalseInput.value = 'false';
         isNecessaryFalseInput.checked = true;
@@ -230,23 +230,23 @@ export default class ReevaluationDashboard {
         isNecessaryFalseInput.className = 'iconRadioButton';
         isNecessaryFalseInput.name = 'IsNecessary';
 
-        var isNecessaryFalseLabel = document.createElement('label');
+        const isNecessaryFalseLabel = document.createElement('label');
         isNecessaryFalseLabel.className = 'reevalIconLabel';
         isNecessaryFalseLabel.htmlFor = `isNecessaryFalse_${transaction.id}`;
 
-        var isUnnecessaryImg = document.createElement('img');
+        const isUnnecessaryImg = document.createElement('img');
         isUnnecessaryImg.src = '/dist/img/chart-decrease.svg';
         isUnnecessaryImg.height = 25;
         isUnnecessaryImg.width = 25;
         isUnnecessaryImg.className = 'reevalIcon';
 
-        var buttonDiv = document.createElement('div');
+        const buttonDiv = document.createElement('div');
 
-        var submitButton = document.createElement('button');
+        const submitButton = document.createElement('button');
         submitButton.className = 'reeval-submit-button';
         submitButton.type = 'submit';
 
-        var submitButtonSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const submitButtonSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         submitButtonSvg.setAttribute('class', 'reeval-submit-svg');
         submitButtonSvg.setAttribute('viewBox', '0 0 24 24');
         submitButtonSvg.setAttribute('height', '40');

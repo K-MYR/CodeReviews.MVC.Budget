@@ -9,9 +9,8 @@ namespace MVC.Budget.K_MYR.API;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TransactionsController(ILogger<TransactionsController> logger, ITransactionsService transactionsService) : ControllerBase
+public class TransactionsController(ITransactionsService transactionsService) : ControllerBase
 {
-    private readonly ILogger<TransactionsController> _logger = logger;
     private readonly ITransactionsService _transactionsService = transactionsService;
 
     [HttpGet("{id}")]

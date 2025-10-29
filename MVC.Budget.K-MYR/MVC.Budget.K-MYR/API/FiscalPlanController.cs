@@ -10,12 +10,10 @@ namespace MVC.Budget.K_MYR.API;
 public class FiscalPlanController : ControllerBase
 {
 
-    private readonly ILogger<FiscalPlanController> _logger;
     private readonly IFiscalPlansService _fiscalPlanService;
 
-    public FiscalPlanController(ILogger<FiscalPlanController> logger, IFiscalPlansService budgetsService)
+    public FiscalPlanController(IFiscalPlansService budgetsService)
     {
-        _logger = logger;
         _fiscalPlanService = budgetsService;
     }
 
@@ -43,9 +41,7 @@ public class FiscalPlanController : ControllerBase
             return NotFound(); 
         }
         
-        var start = DateTime.UtcNow;
         FiscalPlanMonthDTO fiscalPlanDTO = await _fiscalPlanService.GetDataByMonth(fiscalPlan, Month ?? DateTime.UtcNow);
-        _logger.LogInformation("{method} Duration: {duration} ms", nameof(GetDataByMonth),(DateTime.UtcNow - start).Milliseconds);
 
         return Ok(fiscalPlanDTO);
     }
@@ -60,10 +56,7 @@ public class FiscalPlanController : ControllerBase
             return NotFound();
         }
 
-        var start = DateTime.UtcNow;
         FiscalPlanYearDTO fiscalPlanDTO = await _fiscalPlanService.GetDataByYear(id, year);
-        _logger.LogInformation("{method} Duration: {duration} ms", nameof(GetDataByYear), (DateTime.UtcNow - start).Milliseconds);
-
 
         return Ok(fiscalPlanDTO);
     }

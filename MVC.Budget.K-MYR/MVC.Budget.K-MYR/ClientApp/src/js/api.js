@@ -20,7 +20,7 @@ class ApiResponse {
 
 export async function getCountryCookie(countryISOCode, token) {
     try {
-        var response = await fetch(API_ROUTES.COUNTRY, {
+        const response = await fetch(API_ROUTES.COUNTRY, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export async function getCountryCookie(countryISOCode, token) {
 
 export async function postFiscalPlan(formData) {
     try {
-        var response = await fetch(API_ROUTES.fiscalPlans.BASE, {
+        const response = await fetch(API_ROUTES.fiscalPlans.BASE, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,8 +66,8 @@ export async function postFiscalPlan(formData) {
 
 export async function putFiscalPlan(formData) {
     try {
-        var id = formData.get('Id');
-        var response = await fetch(API_ROUTES.fiscalPlans.BY_ID(id), {
+        const id = formData.get('Id');
+        const response = await fetch(API_ROUTES.fiscalPlans.BY_ID(id), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export async function putFiscalPlan(formData) {
 
 export async function deleteFiscalPlan(id, token) {
     try {
-        var response = await fetch(API_ROUTES.fiscalPlans.BY_ID(id), {
+        const response = await fetch(API_ROUTES.fiscalPlans.BY_ID(id), {
             method: 'DELETE',
             headers: {
                 'RequestVerificationToken': token
@@ -110,11 +110,11 @@ export async function deleteFiscalPlan(id, token) {
 
 export async function getFiscalPlanDataByMonth(id, date = new Date()) {
     try {
-        var formattedDate = date instanceof Date ? date.toISOString() : new Date().toISOString();
-        var queryParams = new URLSearchParams({
+        const formattedDate = date instanceof Date ? date.toISOString() : new Date().toISOString();
+        const queryParams = new URLSearchParams({
             Month: formattedDate
         });   
-        var response = await fetch(API_ROUTES.fiscalPlans.GET_MONTHLY_DATA(id, queryParams), {
+        const response = await fetch(API_ROUTES.fiscalPlans.GET_MONTHLY_DATA(id, queryParams), {
             method: 'GET',
         });
 
@@ -131,11 +131,11 @@ export async function getFiscalPlanDataByMonth(id, date = new Date()) {
 
 export async function getFiscalPlanDataByYear(id, date = new Date()) {
     try {
-        var year = date instanceof Date ? date.getFullYear() : new Date().getFullYear();
-        var queryParams = new URLSearchParams({
+        const year = date instanceof Date ? date.getFullYear() : new Date().getFullYear();
+        const queryParams = new URLSearchParams({
             Year: year
         });
-        var response = await fetch(API_ROUTES.fiscalPlans.GET_YEARLY_DATA(id, queryParams), {
+        const response = await fetch(API_ROUTES.fiscalPlans.GET_YEARLY_DATA(id, queryParams), {
             method: 'GET'
         });
 
@@ -152,7 +152,7 @@ export async function getFiscalPlanDataByYear(id, date = new Date()) {
 
 export async function postTransaction(formData) {
     try {
-        var response = await fetch(API_ROUTES.transactions.BASE, {
+        const response = await fetch(API_ROUTES.transactions.BASE, {
            method: 'POST',
            headers: {
                'Content-Type': 'application/json',
@@ -181,8 +181,8 @@ export async function postTransaction(formData) {
 
 export async function putTransaction(formData) {
     try {
-        var id = parseInt(formData.get('Id'));
-        var response = await fetch(API_ROUTES.transactions.BY_ID(id), {
+        const id = parseInt(formData.get('Id'));
+        const response = await fetch(API_ROUTES.transactions.BY_ID(id), {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -214,7 +214,7 @@ export async function putTransaction(formData) {
 
 export async function deleteTransaction(id, token) {
     try {        
-        var response = await fetch(API_ROUTES.transactions.BY_ID(id), {
+        const response = await fetch(API_ROUTES.transactions.BY_ID(id), {
             method: 'DELETE',
             headers: {
                 'RequestVerificationToken': token
@@ -233,9 +233,9 @@ export async function deleteTransaction(id, token) {
 
 export async function patchTransactionEvaluation(formData, previousIsHappy, previousIsNecessary, token) {
     try {
-        var id = formData.get('Id');
+        const id = formData.get('Id');
 
-        var patchDoc =
+        const patchDoc =
             [{
                 op: 'replace',
                 path: '/IsHappy',
@@ -261,7 +261,7 @@ export async function patchTransactionEvaluation(formData, previousIsHappy, prev
                 value: true
             }];
 
-        var response = await fetch(API_ROUTES.transactions.BY_ID(id), {
+        const response = await fetch(API_ROUTES.transactions.BY_ID(id), {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json-patch+json',
@@ -282,7 +282,7 @@ export async function patchTransactionEvaluation(formData, previousIsHappy, prev
 
 export async function getUnevaluatedTransactions(categoryId, lastDate, lastId, pageSize) {
     try {
-        var queryParams = new URLSearchParams({
+        const queryParams = new URLSearchParams({
             categoryId: categoryId,
             pageSize: pageSize
         });
@@ -295,12 +295,12 @@ export async function getUnevaluatedTransactions(categoryId, lastDate, lastId, p
             queryParams.append('lastId', lastId)
         }
 
-        var response = await fetch(API_ROUTES.transactions.GET_UNEVALUATED(queryParams), {
+        const response = await fetch(API_ROUTES.transactions.GET_UNEVALUATED(queryParams), {
             method: 'GET'
         });
 
         if (response.ok) {
-            var data = await response.json();
+            const data = await response.json();
             return ApiResponse.success(response.status, 'Fetched data successfully.', data);
         } else {
             return ApiResponse.failure(response.status, 'Failed to fetch data. Please reload the page.', []);
@@ -312,11 +312,11 @@ export async function getUnevaluatedTransactions(categoryId, lastDate, lastId, p
 
 export async function getCategoryDataByMonth(id, date = new Date(), type) {
     try {
-        var formattedDate = date instanceof Date ? date.toISOString() : new Date().toISOString();
-        var queryParams = new URLSearchParams({
+        const formattedDate = date instanceof Date ? date.toISOString() : new Date().toISOString();
+        const queryParams = new URLSearchParams({
             Month: formattedDate
         });
-        var url;
+        let url;
         switch (type) {
             case 1:           
                 url = API_ROUTES.incomeCategories.GET_MONTHLY_DATA(id, queryParams);
@@ -328,12 +328,12 @@ export async function getCategoryDataByMonth(id, date = new Date(), type) {
                 console.error(`Invalid value '${type}' for 'type' field`);
                 return null;
         }
-        var response = await fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
         });
 
         if (response.ok) {
-            var data = await response.json();
+            const data = await response.json();
             return ApiResponse.success(response.status, 'Fetched data successfully.', data);
         } else {
             return ApiResponse.failure(response.status, 'Failed to fetch data. Please reload the page.', []);
@@ -345,8 +345,8 @@ export async function getCategoryDataByMonth(id, date = new Date(), type) {
 
 export async function postCategory(formData) {
     try {
-        var type = parseInt(formData.get('Type'));
-        var url;
+        const type = parseInt(formData.get('Type'));
+        let url;
         switch (type) {
             case 1:
                 url = API_ROUTES.incomeCategories.BASE;
@@ -358,7 +358,7 @@ export async function postCategory(formData) {
                 console.error(`Invalid value '${type}' for 'type' field`);
                 return false;
         }        
-        var response = await fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -372,7 +372,7 @@ export async function postCategory(formData) {
         });
 
         if (response.ok) {
-            let json = await response.json()
+            const json = await response.json()
             return ApiResponse.success(response.status, 'Category added successfully.', json);
         } else {
             return ApiResponse.failure(response.status, 'Failed to add category. Please try again.', []);
@@ -384,13 +384,13 @@ export async function postCategory(formData) {
 
 export async function putCategory(formData, date = new Date()) {
     try {
-        var id = parseInt(formData.get('Id'));
-        var formattedDate = date instanceof Date ? date.toISOString() : new Date().toISOString();
-        var queryParams = new URLSearchParams({
+        const id = parseInt(formData.get('Id'));
+        const formattedDate = date instanceof Date ? date.toISOString() : new Date().toISOString();
+        const queryParams = new URLSearchParams({
             Month: formattedDate
         });      
-        var type = parseInt(formData.get('Type'));
-        var url;
+        const type = parseInt(formData.get('Type'));
+        let url;
         switch (type) {
             case 1:
                 url = API_ROUTES.incomeCategories.BY_ID_PARAMS(id, queryParams);
@@ -403,7 +403,7 @@ export async function putCategory(formData, date = new Date()) {
                 return false;
         }
 
-        var response = await fetch(url, {
+        const response = await fetch(url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -430,7 +430,7 @@ export async function putCategory(formData, date = new Date()) {
 
 export async function deleteCategory(id, type, token) {
     try {
-        var url;
+        let url;
         switch (type) {
             case 1:
                 url = API_ROUTES.incomeCategories.BY_ID(id);
@@ -442,7 +442,7 @@ export async function deleteCategory(id, type, token) {
                 console.error(`Invalid value '${type}' for 'type' field`);
                 return false;
         }
-        var response = await fetch(url, {
+        const response = await fetch(url, {
             method: 'DELETE',
             headers: {
                 'RequestVerificationToken': token

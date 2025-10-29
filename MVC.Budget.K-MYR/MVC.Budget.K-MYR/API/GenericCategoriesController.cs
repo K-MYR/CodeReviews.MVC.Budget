@@ -9,12 +9,10 @@ namespace MVC.Budget.K_MYR.API;
 [ApiController]
 public abstract class GenericCategoriesController<T> : ControllerBase where T : Category, new()
 {
-    private readonly ILogger<GenericCategoriesController<T>> _logger;
     private readonly ICategoriesService _categoriesService;
 
-    public GenericCategoriesController(ILogger<GenericCategoriesController<T>> logger, ICategoriesService categoriesService)
+    public GenericCategoriesController(ICategoriesService categoriesService)
     {
-        _logger = logger;
         _categoriesService = categoriesService;
     }
 
@@ -50,7 +48,6 @@ public abstract class GenericCategoriesController<T> : ControllerBase where T : 
     public async Task<ActionResult> PostCategory([FromBody] CategoryPost categoryPost)
     {
         var category = await _categoriesService.AddCategory<T>(categoryPost);
-        _logger.LogCritical("Category Id {id} Type {type}", category.Id, category.CategoryType);
 
         return CreatedAtAction(nameof(Category), new { id = category.Id }, category);
     }

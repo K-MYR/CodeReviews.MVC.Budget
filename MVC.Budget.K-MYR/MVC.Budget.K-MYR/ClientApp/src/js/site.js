@@ -10,9 +10,9 @@ document.getElementById("country-form").onsubmit = (event) => {
 } 
 
 async function initializeCountrySelect() {
-    var countrySelect = await getCountrySelect("#country");  
+    const countrySelect = await getCountrySelect("#country");  
     countrySelect.countrySelect("selectCountry", window.userLocale.region.toLowerCase());
-    var form = document.getElementById("country-form");
+    const form = document.getElementById("country-form");
     form.style = "";
     countrySelect.on('change', async function () {
         let iso2Code = countrySelect.countrySelect("getSelectedCountryData").iso2;
@@ -21,7 +21,6 @@ async function initializeCountrySelect() {
         let response = await getCountryCookie(iso2Code, token);
 
         if (response.isSuccess) {
-            console.log(response);
             window.userLocale = new Intl.Locale(response.data.locale);
             window.userNumberFormat = new Intl.NumberFormat(response.data.locale, { style: 'currency', currency: response.data.currency });
             window.dispatchEvent(countryChangedEvent);

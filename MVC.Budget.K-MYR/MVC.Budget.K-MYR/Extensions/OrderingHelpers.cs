@@ -1,4 +1,5 @@
 ﻿using MVC.Budget.K_MYR.Models;
+using System.Collections.Concurrent;
 using System.Reflection;
 
 namespace MVC.Budget.K_MYR.Extensions;
@@ -13,6 +14,8 @@ public static class OrderingHelpers
         string.Join(".", nameof(Category), nameof(Category.Name))
     };
 
+    private static readonly ConcurrentDictionary<string, PropertyInfo> _cache = new();
+
     public static bool IsAllowedProperty(string propertyName)
     {
         return _allowedProperties.Contains(propertyName);
@@ -20,6 +23,11 @@ public static class OrderingHelpers
 
     public static PropertyInfo? GetProperty<T>(string propertyName)
     {
+        if(_cache.TryGetValue(propertyName, out var cached))
+        {
+            return cached;
+        }
+
         string[] properties = propertyName.Split('.');
         PropertyInfo? propertyInfo = null;
         Type type = typeof(T);
@@ -32,8 +40,12 @@ public static class OrderingHelpers
             {
                 return null;
             }
-
             type = propertyInfo.PropertyType;
+        }
+
+        if(propertyInfo is not null)
+        {
+            _cache.TryAdd(propertyName, propertyInfo);
         }
 
         return propertyInfo;

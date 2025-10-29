@@ -30,7 +30,7 @@
     }
 
     #setupEventHandler() {
-        var closeButton = document.getElementById('messageBoxClose-button');
+        const closeButton = document.getElementById('messageBoxClose-button');
 
         closeButton.addEventListener('dblclick', () => {
             this.hide();
@@ -70,7 +70,7 @@
     }
 
     #move(step) {
-        var newIndex = this.#index + step;
+        const newIndex = this.#index + step;
         if (newIndex < this.#messagesContainer.childElementCount && newIndex >= 0) {
             this.#index = newIndex;
             this.#scrollTo(this.#index);
@@ -80,7 +80,7 @@
     }
 
     #scrollTo(index, behavior = 'smooth') {
-        var messageHeight = 48;
+        const messageHeight = 48;
         if (index < this.#messagesContainer.childElementCount && index >= 0) {        
             this.#messagesContainer.scrollTo({
                 top: index * messageHeight,
@@ -98,9 +98,9 @@
         if (this.#isClosing) {
             this.#newMessagesQueue.push(messageObject);
         } else {
-            var messageContainer = document.createElement('div');
+            const messageContainer = document.createElement('div');
             messageContainer.className = 'messageBoxMessage';
-            var text = document.createElement('span');
+            const text = document.createElement('span');
             text.className = 'messageBox-text';
             text.textContent = messageObject.text;
             messageContainer.appendChild(text);
@@ -111,7 +111,7 @@
     }
 
     #removeMessage(index = 0) { 
-        var childToRemove = this.#messagesContainer.children[index];
+        const childToRemove = this.#messagesContainer.children[index];
         if (childToRemove) {
             if (index < this.#index) {
                 this.#index -= 1;
@@ -159,7 +159,7 @@
     }
 
     #setIcon() {
-        var messageObject = this.#messages[this.#index];
+        const messageObject = this.#messages[this.#index];
         if (messageObject) {
             this.#icon.setAttribute('href', messageObject.iconId);
         }

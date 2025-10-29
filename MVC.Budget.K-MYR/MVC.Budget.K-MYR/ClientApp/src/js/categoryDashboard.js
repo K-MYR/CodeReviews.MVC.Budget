@@ -25,9 +25,9 @@ export default class CategoryDashboard {
     async #init(date) {
         try {
             this.#isLoading = true;
-            var token = document.getElementById('antiforgeryToken').value;
-            var datepickerPromise = this.#initializeDatePicker(date);
-            var tablePromise = this.#initializeTable(token);
+            const token = document.getElementById('antiforgeryToken').value;
+            const datepickerPromise = this.#initializeDatePicker(date);
+            const tablePromise = this.#initializeTable(token);
             this.#initializeCharts();
             this.#budgetHeader = document.getElementById('budget-header');
             this.#totalHeader = document.getElementById('total-header');
@@ -42,7 +42,7 @@ export default class CategoryDashboard {
     }
 
     #initializeCharts() {
-        var options = {
+        const options = {
             responsive: true,
             layout: {
                 padding: 2
@@ -52,7 +52,7 @@ export default class CategoryDashboard {
                 tooltip: {
                     callbacks: {
                         label: function (context) {
-                            var label = context.dataset.label || '';
+                            let label = context.dataset.label || '';
 
                             if (label) {
                                 label += ': ';
@@ -66,7 +66,7 @@ export default class CategoryDashboard {
                 }
             }
         };
-        var sentimentChart = document.getElementById('sentimentChart');
+        const sentimentChart = document.getElementById('sentimentChart');
         this.#sentimentChart = new Chart(sentimentChart, {
             type: 'doughnut',
             data: {
@@ -87,7 +87,7 @@ export default class CategoryDashboard {
             options: options
         });
 
-        var necessityChart = document.getElementById('necessityChart');
+        const necessityChart = document.getElementById('necessityChart');
         this.#necessityChart = new Chart(necessityChart, {
             type: 'doughnut',
             data: {
@@ -117,7 +117,7 @@ export default class CategoryDashboard {
         });
 
         $('.monthPicker .calendar-button').on('click', function () {
-            var input = $(this).siblings('.monthSelector');
+            const input = $(this).siblings('.monthSelector');
             if (!input.data('datepicker').picker.is(':visible')) {
                 input.datepicker('show');
             } else {
@@ -129,25 +129,25 @@ export default class CategoryDashboard {
     async #initializeTable(token) {
         try {
             const { default: DataTable } = await import(/* webpackChunkName: "datatables" */'datatables.net-bs5');
-            var lastAjaxData = {
+            const lastAjaxData = {
                 start: 0,
                 lastId: null,
                 lastValue: null
             };
-            var self = this;
-            var table = new DataTable('#transactions-table', {
+            const self = this;
+            const table = new DataTable('#transactions-table', {
                 processing: true,
                 serverSide: true,
                 deferLoading: 0,
                 order: [[1, 'desc']],
                 ajax: function (data, callback, settings) {
-                    var table = new $.fn.dataTable.Api(settings);
+                    const table = new $.fn.dataTable.Api(settings);
 
-                    var isPrevious = false;
-                    var lastId = null;
-                    var lastValue = null;
-                    var orderBy = null;
-                    var orderDirection = null;                    
+                    let isPrevious = false;
+                    let lastId = null;
+                    let lastValue = null;
+                    let orderBy = null;
+                    let orderDirection = null;                    
 
                     if (data.order?.[0]) {
                         orderBy = data.order[0].name;
@@ -173,11 +173,11 @@ export default class CategoryDashboard {
                         }
                     }
 
-                    var date = self.#monthPicker.datepicker('getUTCDate');
-                    var start = new Date(Date.UTC(date.getFullYear(), date.getMonth()));
-                    var end = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 1));                  
+                    const date = self.#monthPicker.datepicker('getUTCDate');
+                    const start = new Date(Date.UTC(date.getFullYear(), date.getMonth()));
+                    const end = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 1));                  
                     end.setMilliseconds(-1);
-                    var requestData = {
+                    const requestData = {
                         draw: data.draw,
                         start: data.start,
                         pageSize: data.length,
@@ -271,7 +271,7 @@ export default class CategoryDashboard {
                 scrollCollapse: true
             });
             this.table = table;
-            var tableContainer = document.getElementById('table-container');
+            const tableContainer = document.getElementById('table-container');
             tableContainer.style = '';
             table.columns.adjust();
         } catch (error) {
@@ -287,7 +287,7 @@ export default class CategoryDashboard {
             }
             this.#isLoading = true;
             this.table.ajax.reload(null, true)
-            var response = await this.#getData(this.#data.id, date, this.#data.categoryType);
+            const response = await this.#getData(this.#data.id, date, this.#data.categoryType);
 
             if (response.isSuccess) {
                 this.#formatCharts(response.data);
@@ -303,12 +303,12 @@ export default class CategoryDashboard {
     } 
 
     async #getData(id, date, type) {
-        var data = await getCategoryDataByMonth(id, date, type);
+        const data = await getCategoryDataByMonth(id, date, type);
         return data;
     }
 
     #formatCharts(data) {
-        var dataObj = data ?? this.#data;
+        const dataObj = data ?? this.#data;
 
         if (dataObj == null) {
             return false;
@@ -323,16 +323,16 @@ export default class CategoryDashboard {
     }
 
     #formatHeaders(data) {
-        var dataObj = data ?? this.#data;
+        const dataObj = data ?? this.#data;
         if (dataObj == null) {
             return false;
         }
-        var isIncomeCategory = dataObj.categoryType === 1;
-        var budgetHeading = isIncomeCategory ? 'Goal' : 'Budget';
-        var totalHeading = isIncomeCategory ? 'Income' : 'Expenses';
-        var budget = dataObj.budgetLimit?.budget ?? dataObj.budget;
-        var difference = budget - dataObj.total;
-        var differenceHeading;
+        const isIncomeCategory = dataObj.categoryType === 1;
+        const budgetHeading = isIncomeCategory ? 'Goal' : 'Budget';
+        const totalHeading = isIncomeCategory ? 'Income' : 'Expenses';
+        const budget = dataObj.budgetLimit?.budget ?? dataObj.budget;
+        const difference = budget - dataObj.total;
+        let differenceHeading;
         if (difference < 0) {
             differenceHeading = isIncomeCategory ? "Surplus" : "Overspending";
         } else {
@@ -347,7 +347,7 @@ export default class CategoryDashboard {
     }
 
     formatDashboard(data) {
-        var dataObj = data ?? this.#data;
+        const dataObj = data ?? this.#data;
 
         if (dataObj == null) {
             return false;
@@ -360,12 +360,12 @@ export default class CategoryDashboard {
     }
 
     addTransaction(transaction) {
-        var transactionDate = new Date(transaction.dateTime)
-        var transactionYear = transactionDate.getYear();
-        var transactionMonth = transactionDate.getMonth();
-        var currentDate = this.getCurrentMonthUTC();
-        var currentYear = currentDate.getYear();
-        var currentMonth = currentDate.getMonth();
+        const transactionDate = new Date(transaction.dateTime)
+        const transactionYear = transactionDate.getYear();
+        const transactionMonth = transactionDate.getMonth();
+        const currentDate = this.getCurrentMonthUTC();
+        const currentYear = currentDate.getYear();
+        const currentMonth = currentDate.getMonth();
 
         if (transactionYear === currentYear && transactionMonth == currentMonth) {
             this.#data.total += transaction.amount;
@@ -384,7 +384,7 @@ export default class CategoryDashboard {
     }
 
     editTransaction(oldTransaction, newAmount, newIsHappy, newIsNecessary, newDate) {
-        var oldDate = new Date(oldTransaction.dateTime);
+        const oldDate = new Date(oldTransaction.dateTime);
         if (oldDate.getYear() === newDate.getYear() && oldDate.getMonth() === newDate.getMonth()) {
             this.#data.total += newAmount;
             this.#data.happyTotal += newIsHappy * newAmount     

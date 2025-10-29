@@ -12,20 +12,20 @@ window.addEventListener('countryChanged', () => {
 
 const modals = importBootstrapModals();
 const tooltips = getTooltips();
-var modalsArray = await modals;
-var addModal = modalsArray.find(m => m._element.id == 'addFiscalPlan-modal');
-var updateModal = modalsArray.find(m => m._element.id == 'updateFiscalPlan-modal');
-var updateModalLabel = document.getElementById('updateFiscalPlan-label');
-var updateModalId = document.getElementById('updateFiscalPlan_id');
-var updateModalName = document.getElementById('updateFiscalPlan_name');
-var deleteModal = modalsArray.find(m => m._element.id == 'deleteFiscalPlan-modal');
-var deleteModalLabel = document.getElementById('deleteFiscalPlan-label');
-var deleteModalId = document.getElementById('deleteFiscalPlan_id');
+const modalsArray = await modals;
+const addModal = modalsArray.find(m => m._element.id == 'addFiscalPlan-modal');
+const updateModal = modalsArray.find(m => m._element.id == 'updateFiscalPlan-modal');
+const updateModalLabel = document.getElementById('updateFiscalPlan-label');
+const updateModalId = document.getElementById('updateFiscalPlan_id');
+const updateModalName = document.getElementById('updateFiscalPlan_name');
+const deleteModal = modalsArray.find(m => m._element.id == 'deleteFiscalPlan-modal');
+const deleteModalLabel = document.getElementById('deleteFiscalPlan-label');
+const deleteModalId = document.getElementById('deleteFiscalPlan_id');
 setupModalHandlers(modals);
 setupRefocusHandlers();
 
 function formatDashboard() {
-    var cards = $('.fiscalPlan-card');
+    const cards = $('.fiscalPlan-card');
     for (let i = 0; i < cards.length; i++) {
         let id = cards[i].dataset.id;
         let incomeText = document.getElementById(`fiscalPlan_income_${id}`);
@@ -36,17 +36,17 @@ function formatDashboard() {
 }
 
 function addFiscalPlan(fiscalPlan, beforeElement) {   
-    var card = document.createElement('div');
+    const card = document.createElement('div');
     card.className = 'fiscalPlan-card fading-in';
     card.id = `fiscalPlan-card_${fiscalPlan.id}`;
     card.setAttribute('data-id', fiscalPlan.id);
     card.setAttribute('data-name', fiscalPlan.name);
     card.tabIndex = 0;
 
-    var headerContainer = document.createElement('div');
+    const headerContainer = document.createElement('div');
     headerContainer.className = 'd-flex justify-content-between gap-1';
 
-    var editIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const editIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     editIcon.setAttribute('viewBox', '0 0 14 14');
     editIcon.setAttribute('height', '30');
     editIcon.setAttribute('width', '30');
@@ -54,16 +54,16 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
     editIcon.setAttribute('fill', '#ffffff');
     editIcon.setAttribute('data-action', 'edit');
     editIcon.tabIndex = 0;
-    var editUse = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    const editUse = document.createElementNS("http://www.w3.org/2000/svg", "use");
     editUse.setAttribute('href', '#edit-icon');
     editIcon.appendChild(editUse);
 
-    var heading = document.createElement('h1');
+    const heading = document.createElement('h1');
     heading.id = `fiscalPlan-header_${fiscalPlan.id}`;
     heading.class = 'fiscalPlan-heading';
     heading.textContent = fiscalPlan.name;
 
-    var deleteIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const deleteIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     deleteIcon.setAttribute('viewBox', '0 0 14 14');
     deleteIcon.setAttribute('height', '30');
     deleteIcon.setAttribute('width', '30');
@@ -71,7 +71,7 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
     deleteIcon.setAttribute('fill', '#ffffff');
     deleteIcon.setAttribute('data-action', 'delete');
     deleteIcon.tabIndex = 0;
-    var deleteUse = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    const deleteUse = document.createElementNS("http://www.w3.org/2000/svg", "use");
     deleteUse.setAttribute('href', '#trash-icon');
     deleteIcon.appendChild(deleteUse);
 
@@ -79,15 +79,15 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
     headerContainer.appendChild(heading);
     headerContainer.appendChild(deleteIcon);
 
-    var progressContainer = document.createElement('div');
+    const progressContainer = document.createElement('div');
     progressContainer.className = 'progress-container';
 
-    var incomeSection = document.createElement('div');
-    var incomeTitleContainer = document.createElement('div');
+    const incomeSection = document.createElement('div');
+    const incomeTitleContainer = document.createElement('div');
     incomeTitleContainer.className = 'd-flex justify-content-between';
-    var incomeTitle = document.createElement('div');
+    const incomeTitle = document.createElement('div');
     incomeTitle.textContent = 'Income';
-    var incomeTotal = document.createElement('div');
+    const incomeTotal = document.createElement('div');
     incomeTotal.className = 'text-end';
     incomeTotal.id = `fiscalPlan_income_${fiscalPlan.id}`;
     incomeTotal.textContent = `${window.userNumberFormat.format(0)} /  ${window.userNumberFormat.format(0)}`;
@@ -96,9 +96,9 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
     incomeTitleContainer.appendChild(incomeTotal);
     incomeSection.appendChild(incomeTitleContainer);
 
-    var incomeProgressDiv = document.createElement('div');
+    const incomeProgressDiv = document.createElement('div');
     incomeProgressDiv.className = 'progress';
-    var incomeProgressBar = document.createElement('div');
+    const incomeProgressBar = document.createElement('div');
     incomeProgressBar.className = 'progress-bar bg-success';
     incomeProgressBar.setAttribute('role', 'progressbar');
     incomeProgressBar.style.width = '100%'; 
@@ -110,12 +110,12 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
     incomeProgressDiv.appendChild(incomeProgressBar);
     incomeSection.appendChild(incomeProgressDiv);
 
-    var expensesSection = document.createElement('div');
-    var expensesTitleContainer = document.createElement('div');
+    const expensesSection = document.createElement('div');
+    const expensesTitleContainer = document.createElement('div');
     expensesTitleContainer.className = 'd-flex justify-content-between';
-    var expensesTitle = document.createElement('div');
+    const expensesTitle = document.createElement('div');
     expensesTitle.textContent = 'Expenses';
-    var expensesTotal = document.createElement('div');
+    const expensesTotal = document.createElement('div');
     expensesTotal.id = `fiscalPlan_expenses_${fiscalPlan.id}`;
     expensesTotal.className = 'text-end';
     expensesTotal.textContent = `${window.userNumberFormat.format(0)} /  ${window.userNumberFormat.format(0)}`;
@@ -124,9 +124,9 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
     expensesTitleContainer.appendChild(expensesTotal);
     expensesSection.appendChild(expensesTitleContainer);
 
-    var expensesProgressDiv = document.createElement('div');
+    const expensesProgressDiv = document.createElement('div');
     expensesProgressDiv.className = 'progress';
-    var expensesProgressBar = document.createElement('div');
+    const expensesProgressBar = document.createElement('div');
     expensesProgressBar.className = 'progress-bar bg-danger';
     expensesProgressBar.setAttribute('role', 'progressbar');
     expensesProgressBar.style.width = '100%';
@@ -149,30 +149,30 @@ function addFiscalPlan(fiscalPlan, beforeElement) {
 }
 
 function updateFiscalPlan(formData) {
-    var id = formData.get('Id');
-    var name = formData.get('Name');
-    var header = document.getElementById(`fiscalPlan-header_${id}`);
+    const id = formData.get('Id');
+    const name = formData.get('Name');
+    const header = document.getElementById(`fiscalPlan-header_${id}`);
     header.textContent = name;
-    var card = document.getElementById(`fiscalPlan-card_${id}`);
+    const card = document.getElementById(`fiscalPlan-card_${id}`);
     card.dataset.name = name;
 }
 
 function removeFiscalPlan(id) {
-    var element = document.getElementById(`fiscalPlan-card_${id}`);
+    const element = document.getElementById(`fiscalPlan-card_${id}`);
     if (element) {
         element.classList.add('fading-out');
     }
 }
 
 async function setupModalHandlers() {   
-    var addfiscalPlanCard = document.getElementById('addFiscalPlan-card');
+    const addfiscalPlanCard = document.getElementById('addFiscalPlan-card');
     
-    var addFiscalPlanForm = document.getElementById('addFiscalPlan-form');
+    const addFiscalPlanForm = document.getElementById('addFiscalPlan-form');
     addFiscalPlanForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (addModal._isShown && $(this).valid()) {
             addModal.hide();
-            var response = await postFiscalPlan(new FormData(this));
+            const response = await postFiscalPlan(new FormData(this));
             if (response.isSuccess) {
                 addFiscalPlan(response.data, addfiscalPlanCard);
             }
@@ -189,7 +189,7 @@ async function setupModalHandlers() {
         }
     });
 
-    var updateFiscalPlanForm = document.getElementById('updateFiscalPlan-form');
+    const updateFiscalPlanForm = document.getElementById('updateFiscalPlan-form');
     updateFiscalPlanForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (updateModal._isShown && $(this).valid()) {
@@ -204,15 +204,15 @@ async function setupModalHandlers() {
         }
     });
 
-    var deleteFiscalPlanForm = document.getElementById('deleteFiscalPlan-form');
+    const deleteFiscalPlanForm = document.getElementById('deleteFiscalPlan-form');
     deleteFiscalPlanForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         if (deleteModal._isShown) {
             deleteModal.hide();
-            var formData = new FormData(this);
-            var id = formData.get('Id');
-            var token = formData.get('__RequestVerificationToken');
-            var response = await deleteFiscalPlan(id, token);
+            const formData = new FormData(this);
+            const id = formData.get('Id');
+            const token = formData.get('__RequestVerificationToken');
+            const response = await deleteFiscalPlan(id, token);
             if (response.isSuccess) {
                 removeFiscalPlan(id);
             }
@@ -235,8 +235,8 @@ function handleFiscalPlanInteraction(event) {
 }
 
 function onFiscalPlanClick(event) {
-    var fiscalPlanCard = event.currentTarget;
-    var id = parseInt(fiscalPlanCard.dataset.id);
+    const fiscalPlanCard = event.currentTarget;
+    const id = parseInt(fiscalPlanCard.dataset.id);
 
     if (event.target.matches('.fiscalPlan-icon')) {        
         switch (event.target.dataset.action) {
@@ -260,7 +260,7 @@ function onFiscalPlanClick(event) {
 
 function onFiscalPlanFadeOut(event) {
     if (event.animationName === 'fading-out') {
-        var card = event.currentTarget;
+        const card = event.currentTarget;
         card.removeEventListener('animationend', onFiscalPlanFadeOut);
         card.removeEventListener('click', onFiscalPlanClick);
         card.removeEventListener('keydown', onFiscalPlanClick);
@@ -270,8 +270,8 @@ function onFiscalPlanFadeOut(event) {
 
 async function getTooltips() {
     const Tooltip = (await import(/* webpackChunkName: "bootstrap-tooltips" */'bootstrap/js/dist/tooltip')).default;
-    var tooltipElements = document.querySelectorAll('.tooltipped');
-    var tooltips = [...tooltipElements].map(element => new Tooltip(element, {
+    const tooltipElements = document.querySelectorAll('.tooltipped');
+    const tooltips = [...tooltipElements].map(element => new Tooltip(element, {
         container: 'body',
         delay: { show: 500, hide: 0 },
         placement: 'top',

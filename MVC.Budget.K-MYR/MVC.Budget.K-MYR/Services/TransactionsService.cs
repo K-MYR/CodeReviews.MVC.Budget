@@ -1,10 +1,11 @@
-﻿using System.Linq.Dynamic.Core;
+﻿using LanguageExt.Common;
 using MVC.Budget.K_MYR.Data;
+using MVC.Budget.K_MYR.Enums;
 using MVC.Budget.K_MYR.Extensions;
 using MVC.Budget.K_MYR.Models;
-using MVC.Budget.K_MYR.Enums;
-using LanguageExt.Common;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Dynamic.Core;
+using System.Text.Json;
 
 namespace MVC.Budget.K_MYR.Services;
 
@@ -53,7 +54,20 @@ public class TransactionsService : ITransactionsService
 
                     try
                     {
-                        var lastValue = Convert.ChangeType(requestModel.LastValue, type);
+                        object? lastValue = requestModel.LastValue;
+                        if (requestModel.LastValue is JsonElement jsonElement)
+                        {
+                            lastValue = jsonElement.ValueKind switch
+                            {
+                                JsonValueKind.String => jsonElement.GetString(),
+                                JsonValueKind.Number => jsonElement.TryGetInt64(out var l) ? l : jsonElement.GetDouble(),
+                                JsonValueKind.True => true,
+                                JsonValueKind.False => false,
+                                JsonValueKind.Null => null,
+                                _ => jsonElement.ToString()
+                            };
+                        }
+                        var convertedValue = Convert.ChangeType(lastValue, type);
                         filter = q => q.Where($"{requestModel.OrderBy} {comparerSymbol} @0 || ({requestModel.OrderBy} == @0 && Id {comparerSymbol} @1)", lastValue, requestModel.LastId);
                     }
                     catch

@@ -25,14 +25,14 @@ export default class StatisticsDashboard {
 
     async #init(id, year) {
         try {
-            var chartsPromise = this.#initializeCharts();            
+            const chartsPromise = this.#initializeCharts();            
 
             this.#overspendingHeading = document.getElementById('statistics-overspending');
             this.#overspendingHeading.textContent = `Overspending: ${window.userNumberFormat.format(0)}`;
             this.#totalSpentHeading = document.getElementById('statistics-totalSpent');
             this.#totalSpentHeading.textContent = `Total Spent: ${window.userNumberFormat.format(0)}`;
 
-            var response = await this.#getData(id, year);
+            const response = await this.#getData(id, year);
             if (response.isSuccess) {
                 await chartsPromise;
                 this.#renderData(response.data);
@@ -77,7 +77,7 @@ export default class StatisticsDashboard {
     }
 
     async #getData(id, year) {
-        var data = await getFiscalPlanDataByYear(id, year);
+        const data = await getFiscalPlanDataByYear(id, year);
         return data;
     }
 
@@ -101,13 +101,13 @@ export default class StatisticsDashboard {
     }
 
     async #renderData(data) {
-        var dataObj = data ?? this.#data;
+        const dataObj = data ?? this.#data;
 
         if (dataObj == null) {
             return false;
         }
 
-        var tasks = [];
+        const tasks = [];
 
         this.#overspendingHeading.textContent = `Overspending: ${window.userNumberFormat.format(data.overspendingTotal)}`;
         this.#totalSpentHeading.textContent = `Total Spent: ${window.userNumberFormat.format(data.totalSpent)}`;
@@ -132,7 +132,7 @@ export default class StatisticsDashboard {
         this.#necessityBarChart.data.datasets[4].data = data.unevaluatedPerMonth;
         tasks.push(this.#updateChartTask(this.#necessityBarChart));
 
-        var datasets = [];
+        const datasets = [];
 
         for (let i = 0; i < data.monthlyOverspendingPerCategory.length; i++) {
             let categoryData = data.monthlyOverspendingPerCategory[i];
@@ -165,8 +165,8 @@ export default class StatisticsDashboard {
     }
 
     async #initializeCharts() {
-        var tasks = [];
-        var pieChartDatasets = [{
+        const tasks = [];
+        const pieChartDatasets = [{
             label: 'Total Amount',
             data: [0, 0],
             backgroundColor: [
@@ -175,7 +175,7 @@ export default class StatisticsDashboard {
             ],
             hoverOffset: 4
         }];
-        var tooltip = {
+        const tooltip = {
             callbacks: {
                 label: function (context) {
                     let label = context.dataset.label || '';
@@ -190,7 +190,7 @@ export default class StatisticsDashboard {
                 }
             }
         };
-        var options = {
+        const options = {
             responsive: true,
             layout: {
                 padding: 2
@@ -200,7 +200,7 @@ export default class StatisticsDashboard {
                 tooltip: tooltip
             }
         };
-        var scales = {
+        const scales = {
             y: {
                 border: {
                     color: '#d3d3d3',
@@ -248,7 +248,7 @@ export default class StatisticsDashboard {
             options: options
         }).then(chart => this.#necessityChartYearly = chart));
 
-        var defaultTooltip =
+        const defaultTooltip =
         {
             callbacks: {
                 label: function (context) {
@@ -265,7 +265,7 @@ export default class StatisticsDashboard {
             }
         };
 
-        var defaultOptions =
+        const defaultOptions =
         {
             ...options,
             scales: scales
