@@ -35,7 +35,7 @@ Interactive charts visualize **monthly and yearly statistics**, allowing users t
 ## ⚙️ Technologies & Architecture
 
 - **ASP.NET Core MVC (C#)** for backend logic and views.  
-- **Entity Framework Core (Code-First)** for data access.  
+- **Entity Framework Core** for data access.  
 - **SQL Server** as the relational database.  
 - **Unit of Work pattern** for structured data operations and improved maintainability.  
 - **Vanilla JavaScript** for dynamic front-end behavior and modal management.  
@@ -91,6 +91,13 @@ This project was a major step in building **full-stack MVC applications** with d
 It integrates structured backend design patterns with direct JavaScript DOM manipulation to create a smooth user experience.
 
 ---
+
+## 🛠️ Planned Features
+
+These are improvements and new features I plan to implement in future iterations of the application:
+
+- **Savings Category Type:** Introduce a dedicated category type for savings to better track financial goals.  
+- **Enhanced Responsive Design:** Improve layout and usability for smaller screens and mobile devices.  
 
 ## ⚠️ Disclaimer
 
