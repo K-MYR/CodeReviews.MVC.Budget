@@ -1,12 +1,11 @@
-﻿const BASE_URL = 'https://localhost:7246';
-const API_BASE_URL = `${BASE_URL}/api`;
+﻿const API_BASE_URL = '/api';
 const FISCAL_PLAN_BASE = `${API_BASE_URL}/FiscalPlan`;
 const EXPENSE_CATEGORIES_BASE = `${API_BASE_URL}/ExpenseCategories`;
 const INCOME_CATEGORIES_BASE = `${API_BASE_URL}/IncomeCategories`;
 const TRANSACTIONS_BASE = `${API_BASE_URL}/Transactions`;
 
 export const API_ROUTES = {
-    COUNTRY: `${BASE_URL}/Country`,
+    COUNTRY: '/Country',
     fiscalPlans: {        
         BASE: FISCAL_PLAN_BASE,
         BY_ID: (id) => `${FISCAL_PLAN_BASE}/${id}`,
@@ -34,7 +33,7 @@ export const API_ROUTES = {
 };
 
 export const PAGE_ROUTES = {
-    INDEX: BASE_URL,
-    FISCAL_PLAN: (id) => `${BASE_URL}/FiscalPlan/${id}`,
-    CATEGORY: (id) => `${BASE_URL}/Category/${id}`,
+    INDEX: '',
+    FISCAL_PLAN: (id) => `/FiscalPlan/${id}`,
+    CATEGORY: (id) => `/Category/${id}`,
 }

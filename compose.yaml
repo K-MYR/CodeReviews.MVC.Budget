@@ -1,0 +1,38 @@
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/opt/mssql-tools18/bin/sqlcmd",
+          "-Usa",
+          "-P${MSSQL_SA_PASSWORD}",
+          "-Q",
+          "SELECT 1",
+          "-C"
+        ]
+      interval: 1s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+  spendwise:
+    image: spendwise:latest
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__DatabaseConnectionString: "Server=database;Database=Spendwise;User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=True"
+    depends_on:
+      database:
+        condition: service_healthy
+
+volumes:
+  sqlserver-data:

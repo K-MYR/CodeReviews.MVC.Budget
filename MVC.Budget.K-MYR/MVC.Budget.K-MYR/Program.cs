@@ -45,7 +45,7 @@ using (var scope = app.Services.CreateScope())
     if (builder.Configuration.GetValue<bool>(ConfigurationKeys.AutoMigrate))
         db.Database.Migrate();
     if (builder.Configuration.GetValue<bool>(ConfigurationKeys.SeedData))
-        SeedData.InitializeDatabase(db);
+        await SeedData.InitializeDatabase(db);
 }
 
 if (!app.Environment.IsDevelopment())

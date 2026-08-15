@@ -1,4 +1,5 @@
-﻿using MVC.Budget.K_MYR.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MVC.Budget.K_MYR.Models;
 
 namespace MVC.Budget.K_MYR.Data;
 
@@ -6,9 +7,9 @@ public static class SeedData
 {
     public static readonly Random Random = new();
     public static readonly DateTime Now = DateTime.UtcNow;
-    public static void InitializeDatabase(DatabaseContext context)
+    public async static Task InitializeDatabase(DatabaseContext context)
     {
-        context.Database.EnsureCreated();
+        await context.Database.MigrateAsync();
 
         if (context.FiscalPlans.Any())
         {
