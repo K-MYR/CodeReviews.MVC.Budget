@@ -477,5 +477,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Environemnt
+# Environment
 .env
+
+# Generated distribution package
+dist/
+

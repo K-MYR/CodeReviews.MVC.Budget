@@ -24,12 +24,12 @@ public partial class App : Application
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();
 
-        var configurationPath = Path.Combine(
-            AppContext.BaseDirectory,
-            "appsettings.json");
+        var configDirectory = Directory.GetParent(AppContext.BaseDirectory)?.FullName
+            ?? throw new InvalidOperationException("Could not determine the distribution directory.");
 
-        services.AddSingleton(_ =>
-            new ConfigurationService(configurationPath));
+        var configurationPath = Path.Combine(configDirectory, "appsettings.json");
+
+        services.AddSingleton(_ => new ConfigurationService(configurationPath));
     }
 
     protected override void OnStartup(StartupEventArgs e)

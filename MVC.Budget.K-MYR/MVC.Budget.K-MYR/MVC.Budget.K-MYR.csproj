@@ -5,12 +5,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MVC.Budget.K_MYR</RootNamespace>
+	<AssemblyName>Spendwise</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Scripts\**" />
     <Compile Remove="wwwroot\lib\node_modules\**" />
+    <Content Remove="Scripts\**" />
     <Content Remove="wwwroot\lib\node_modules\**" />
+    <EmbeddedResource Remove="Scripts\**" />
     <EmbeddedResource Remove="wwwroot\lib\node_modules\**" />
+    <None Remove="Scripts\**" />
     <None Remove="wwwroot\lib\node_modules\**" />
   </ItemGroup>
 

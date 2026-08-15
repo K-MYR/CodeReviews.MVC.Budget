@@ -5,6 +5,7 @@
     <RootNamespace>MVC.Budget.K_MYR.Common</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<AssemblyName>Spendwise.Common</AssemblyName>
   </PropertyGroup>
 
 </Project>
