@@ -24,7 +24,10 @@ public partial class App : Application
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();
 
-        var configDirectory = Directory.GetParent(AppContext.BaseDirectory)?.FullName
+        string? currentDir = Path.GetDirectoryName(AppContext.BaseDirectory)
+            ?? throw new InvalidOperationException("Could not determine the current directory.");
+
+        string? configDirectory = Path.GetDirectoryName(currentDir)
             ?? throw new InvalidOperationException("Could not determine the distribution directory.");
 
         var configurationPath = Path.Combine(configDirectory, "appsettings.json");

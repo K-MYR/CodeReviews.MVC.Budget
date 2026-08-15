@@ -75,7 +75,7 @@ Write-Host "Configuration tool published successfully."
 
 Write-Host "Creating configuration tool shortcut..."
 
-$shortcutPath = Join-Path $dist "Spendwise Configuration.lnk"
+$shortcutPath = Join-Path $dist "Spendwise.Configuration.lnk"
 $targetPath = Join-Path $configTool "Spendwise.Configuration.exe"
 
 $wshShell = New-Object -ComObject WScript.Shell
@@ -88,6 +88,39 @@ $shortcut.Description = "Spendwise Configuration"
 $shortcut.Save()
 
 Write-Host "Configuration tool shortcut created."
+
+Write-Host "Publishing Spendwise launcher..."
+
+$launcherProject = Join-Path $root "MVC.Budget.K-MYR\MVC.Budget.K-MYR.Launcher\MVC.Budget.K-MYR.Launcher.csproj"
+$launcherDirectory = Join-Path $dist "launcher"
+
+dotnet publish $launcherProject `
+    -c Release `
+    -r win-x64 `
+    --self-contained true `
+    -o $launcherDirectory
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Spendwise launcher publish failed."
+}
+
+Write-Host "Spendwise launcher published successfully."
+
+Write-Host "Creating Spendwise launcher shortcut..."
+
+$launcherShortcutPath = Join-Path $dist "Spendwise.lnk"
+$launcherExecutablePath = Join-Path $launcherDirectory "Spendwise.Launcher.exe"
+
+$wshShell = New-Object -ComObject WScript.Shell
+$launcherShortcut = $wshShell.CreateShortcut($launcherShortcutPath)
+
+$launcherShortcut.TargetPath = $launcherExecutablePath
+$launcherShortcut.WorkingDirectory = $launcherDirectory
+$launcherShortcut.Description = "Start Spendwise"
+
+$launcherShortcut.Save()
+
+Write-Host "Spendwise launcher shortcut created."
 
 Write-Host "Copying runtime files..."
 

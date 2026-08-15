@@ -39,6 +39,6 @@ public partial class MainWindowViewModel : ObservableObject
     private void RestoreDefaults()
     {
         Configuration = new AppConfiguration();
-        StatusMessage = "Default configuration restored.";
+        StatusMessage = "Default configuration restored, but not saved yet.";
     }
 }
