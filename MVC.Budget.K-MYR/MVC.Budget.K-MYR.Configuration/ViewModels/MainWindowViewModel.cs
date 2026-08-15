@@ -11,6 +11,8 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     public partial AppConfiguration Configuration { get; set; } = new();
+    [ObservableProperty]
+    public partial string StatusMessage { get; set; } = string.Empty;
 
     public MainWindowViewModel(ConfigurationService configurationService)
     {
@@ -22,6 +24,21 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void Save()
     {
-        _configurationService.Save(Configuration);
+        try
+        {
+            _configurationService.Save(Configuration);
+            StatusMessage = "Configuration saved successfully.";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to save configuration: {ex.Message}";
+        }
+    }
+
+    [RelayCommand]
+    private void RestoreDefaults()
+    {
+        Configuration = new AppConfiguration();
+        StatusMessage = "Default configuration restored.";
     }
 }

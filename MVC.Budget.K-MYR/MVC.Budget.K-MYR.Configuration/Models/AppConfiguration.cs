@@ -10,16 +10,9 @@ public class AppConfiguration
 
     public bool SeedData { get; set; }
 
-    public ConnectionStringsConfiguration ConnectionStrings { get; set; } = new();
+    public string DatabaseConnectionString { get; set; } = string.Empty;
 
     public LoggingConfiguration Logging { get; set; } = new();
-}
-
-public class ConnectionStringsConfiguration
-{
-    public string MSQL { get; set; } = string.Empty;
-
-    public string SQLServer { get; set; } = string.Empty;
 }
 
 public class LoggingConfiguration
