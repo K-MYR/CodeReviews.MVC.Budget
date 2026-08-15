@@ -24,11 +24,12 @@ public partial class App : Application
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();
 
-        services.AddSingleton<ConfigurationService>(_ =>
-            new ConfigurationService(
-                Path.Combine(
-                    AppContext.BaseDirectory,
-                    "appsettings.json")));
+        var configurationPath = Path.Combine(
+            AppContext.BaseDirectory,
+            "appsettings.json");
+
+        services.AddSingleton(_ =>
+            new ConfigurationService(configurationPath));
     }
 
     protected override void OnStartup(StartupEventArgs e)

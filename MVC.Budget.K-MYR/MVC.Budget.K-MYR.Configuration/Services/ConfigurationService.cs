@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using Microsoft.Extensions.Configuration;
+using MVC.Budget.K_MYR.Configuration.Models;
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.Configuration;
-using MVC.Budget.K_MYR.Configuration.Models;
 
 namespace MVC.Budget.K_MYR.Configuration.Services;
 
@@ -56,7 +56,7 @@ public class ConfigurationService
         if (!string.IsNullOrEmpty(directory))
             Directory.CreateDirectory(directory);
 
-        var defaultConfiguration = new AppConfiguration();       
+        var defaultConfiguration = new AppConfiguration();
 
         var json = JsonSerializer.Serialize(defaultConfiguration, _options);
 

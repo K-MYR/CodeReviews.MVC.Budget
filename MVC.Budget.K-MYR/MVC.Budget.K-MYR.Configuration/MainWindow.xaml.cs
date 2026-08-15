@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using MVC.Budget.K_MYR.Configuration.ViewModels;
+﻿using MVC.Budget.K_MYR.Configuration.ViewModels;
+using System.Windows;
 
 namespace MVC.Budget.K_MYR.Configuration;
 

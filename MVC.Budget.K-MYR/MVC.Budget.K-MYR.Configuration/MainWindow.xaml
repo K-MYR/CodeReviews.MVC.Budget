@@ -2,166 +2,185 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:logging="clr-namespace:Microsoft.Extensions.Logging;assembly=Microsoft.Extensions.Logging.Abstractions"
-        Title="The Budgeteer Configuration"
+        Title="Spendwise Configuration"
         Height="550"
         Width="500"
         MinWidth="450"
         MinHeight="550"
-        WindowStartupLocation="CenterScreen">
-
-    <Grid Margin="30">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <!-- Title -->
-        <TextBlock Grid.Row="0"
-                   Text="The Budgeteer Configuration"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,30"/>
-
-        <!-- Database -->
-        <StackPanel Grid.Row="1"
-                    Margin="0,0,0,20">
-
-            <TextBlock Text="Database"
-                       FontSize="16"
-                       FontWeight="SemiBold"
-                       Margin="0,0,0,10"/>
-
-            <TextBlock Text="Database Connection String"
-                       Margin="0,0,0,5"/>
-
-            <TextBox Text="{Binding Configuration.DatabaseConnectionString, UpdateSourceTrigger=PropertyChanged}"
-                     Height="30"
-                     Padding="5"/>
-
-            <CheckBox Content="Automatically migrate database"
-                      IsChecked="{Binding Configuration.AutoMigrate}"
-                      Margin="0,15,0,10"/>
-
-            <CheckBox Content="Seed data"
-                      IsChecked="{Binding Configuration.SeedData}"/>
-
-        </StackPanel>
-
-        <!-- Logging -->
-        <StackPanel Grid.Row="2">
-
-            <TextBlock Text="Logging"
-                       FontSize="16"
-                       FontWeight="SemiBold"
-                       Margin="0,0,0,10"/>
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F6F8"
+        FontFamily="Segoe UI"
+        FontSize="14">
+    <Grid>
+        <Border Background="White"
+            CornerRadius="12"
+            Padding="30"
+            MaxWidth="650"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="200"/>
-                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,25">
 
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Text="Default Log Level"
-                           VerticalAlignment="Center"
+                    <Image Source="/Assets/gear.png"
+                       Width="64"
+                       Height="64"
+                       Margin="0,0,20,0"/>
+
+                    <StackPanel>
+                        <TextBlock Text="Spendwise"
+                           FontSize="26"
+                           FontWeight="SemiBold"/>
+
+                        <TextBlock Text="Configuration"
+                           FontSize="14"
+                           Opacity="0.6"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                        Margin="0,0,0,20">
+
+                    <TextBlock Text="Database"
+                           FontSize="16"
+                           FontWeight="SemiBold"
                            Margin="0,0,0,10"/>
 
-                <ComboBox Grid.Row="0"
-                          Grid.Column="1"
-                          SelectedValue="{Binding Configuration.Logging.LogLevel.Default}"
-                          SelectedValuePath="Tag"
-                          Margin="10,0,0,10">
+                    <TextBlock Text="Database Connection String"
+                           Margin="0,0,0,5"/>
 
-                    <ComboBoxItem Content="Trace"
-                                  Tag="{x:Static logging:LogLevel.Trace}"/>
-                    <ComboBoxItem Content="Debug"
-                                  Tag="{x:Static logging:LogLevel.Debug}"/>
-                    <ComboBoxItem Content="Information"
-                                  Tag="{x:Static logging:LogLevel.Information}"/>
-                    <ComboBoxItem Content="Warning"
-                                  Tag="{x:Static logging:LogLevel.Warning}"/>
-                    <ComboBoxItem Content="Error"
-                                  Tag="{x:Static logging:LogLevel.Error}"/>
-                    <ComboBoxItem Content="Critical"
-                                  Tag="{x:Static logging:LogLevel.Critical}"/>
-                    <ComboBoxItem Content="None"
-                                  Tag="{x:Static logging:LogLevel.None}"/>
+                    <TextBox Text="{Binding Configuration.ConnectionStrings.DatabaseConnectionString, UpdateSourceTrigger=PropertyChanged}"
+                         Height="30"
+                         Padding="5"/>
 
-                </ComboBox>
+                    <CheckBox Content="Automatically migrate database"
+                          IsChecked="{Binding Configuration.AutoMigrate}"
+                          Margin="0,15,0,10"/>
 
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           Text="ASP.NET Core Log Level"
-                           VerticalAlignment="Center"
+                    <CheckBox Content="Seed data"
+                          IsChecked="{Binding Configuration.SeedData}"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="2">
+
+                    <TextBlock Text="Logging"
+                           FontSize="16"
+                           FontWeight="SemiBold"
                            Margin="0,0,0,10"/>
 
-                <ComboBox Grid.Row="1"
-                          Grid.Column="1"
-                          SelectedValue="{Binding Configuration.Logging.LogLevel.MicrosoftAspNetCore}"
-                          SelectedValuePath="Tag"
-                          Margin="10,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <ComboBoxItem Content="Trace"
-                                  Tag="{x:Static logging:LogLevel.Trace}"/>
-                    <ComboBoxItem Content="Debug"
-                                  Tag="{x:Static logging:LogLevel.Debug}"/>
-                    <ComboBoxItem Content="Information"
-                                  Tag="{x:Static logging:LogLevel.Information}"/>
-                    <ComboBoxItem Content="Warning"
-                                  Tag="{x:Static logging:LogLevel.Warning}"/>
-                    <ComboBoxItem Content="Error"
-                                  Tag="{x:Static logging:LogLevel.Error}"/>
-                    <ComboBoxItem Content="Critical"
-                                  Tag="{x:Static logging:LogLevel.Critical}"/>
-                    <ComboBoxItem Content="None"
-                                  Tag="{x:Static logging:LogLevel.None}"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
 
-                </ComboBox>
+                        <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Default Log Level"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,10"/>
+
+                        <ComboBox Grid.Row="0"
+                              Grid.Column="1"
+                              SelectedValue="{Binding Configuration.Logging.LogLevel.Default}"
+                              SelectedValuePath="Tag"
+                              Margin="10,0,0,10">
+
+                            <ComboBoxItem Content="Trace"
+                                      Tag="{x:Static logging:LogLevel.Trace}"/>
+                            <ComboBoxItem Content="Debug"
+                                      Tag="{x:Static logging:LogLevel.Debug}"/>
+                            <ComboBoxItem Content="Information"
+                                      Tag="{x:Static logging:LogLevel.Information}"/>
+                            <ComboBoxItem Content="Warning"
+                                      Tag="{x:Static logging:LogLevel.Warning}"/>
+                            <ComboBoxItem Content="Error"
+                                      Tag="{x:Static logging:LogLevel.Error}"/>
+                            <ComboBoxItem Content="Critical"
+                                      Tag="{x:Static logging:LogLevel.Critical}"/>
+                            <ComboBoxItem Content="None"
+                                      Tag="{x:Static logging:LogLevel.None}"/>
+
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="ASP.NET Core Log Level"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,10"/>
+
+                        <ComboBox Grid.Row="1"
+                              Grid.Column="1"
+                              SelectedValue="{Binding Configuration.Logging.LogLevel.MicrosoftAspNetCore}"
+                              SelectedValuePath="Tag"
+                              Margin="10,0,0,10">
+
+                            <ComboBoxItem Content="Trace"
+                                      Tag="{x:Static logging:LogLevel.Trace}"/>
+                            <ComboBoxItem Content="Debug"
+                                      Tag="{x:Static logging:LogLevel.Debug}"/>
+                            <ComboBoxItem Content="Information"
+                                      Tag="{x:Static logging:LogLevel.Information}"/>
+                            <ComboBoxItem Content="Warning"
+                                      Tag="{x:Static logging:LogLevel.Warning}"/>
+                            <ComboBoxItem Content="Error"
+                                      Tag="{x:Static logging:LogLevel.Error}"/>
+                            <ComboBoxItem Content="Critical"
+                                      Tag="{x:Static logging:LogLevel.Critical}"/>
+                            <ComboBoxItem Content="None"
+                                      Tag="{x:Static logging:LogLevel.None}"/>
+
+                        </ComboBox>
+
+                    </Grid>
+
+                </StackPanel>
+
+                <TextBlock Grid.Row="3"
+                       Margin="0,5,0,10"
+                       Text="{Binding StatusMessage}"
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Opacity="0.8"/>
+
+                <StackPanel Grid.Row="4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+
+                    <Button Content="Restore Defaults"
+                    Width="130"
+                    Margin="0,0,10,0"
+                    FontSize="14"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Command="{Binding RestoreDefaultsCommand}"/>
+
+                    <Button Content="Save"
+                        Width="70"
+                        FontSize="14"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding SaveCommand}"/>
+
+                </StackPanel>
 
             </Grid>
-
-        </StackPanel>
-
-        <!-- Status -->
-        <TextBlock Grid.Row="3"
-                   Margin="0,20,0,0"
-                   Text="{Binding StatusMessage}"
-                   TextWrapping="Wrap"
-                   FontSize="13"
-                   Opacity="0.8"/>
-
-        <!-- Actions -->
-        <StackPanel Grid.Row="4"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-
-            <Button Content="Restore Defaults"
-                Width="130"
-                Height="30"
-                Margin="0,0,10,0"
-                FontSize="14"
-                FontWeight="Bold"
-                Command="{Binding RestoreDefaultsCommand}"/>
-
-            <Button Content="Save"
-                    Width="70"
-                    Height="30"
-                    FontSize="14"
-                    FontWeight="Bold"
-                    Command="{Binding SaveCommand}"/>
-
-        </StackPanel>
-
+        </Border>
     </Grid>
-
 </Window>

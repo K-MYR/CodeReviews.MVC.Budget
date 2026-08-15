@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MVC.Budget.K_MYR.Common;
 using MVC.Budget.K_MYR.Data;
 using MVC.Budget.K_MYR.Extensions;
 using MVC.Budget.K_MYR.Repositories;
@@ -22,7 +23,8 @@ builder.Services.AddTransient<IFiscalPlansService, FiscalPlansService>();
 
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(ConfigurationKeys.DatabaseConnectionString)));
 builder.Services.AddControllersWithViews(options =>
                 {
                     options.InputFormatters.Insert(0, JsonPatchInputFormatter.GetJsonPatchInputFormatter());
@@ -40,9 +42,9 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
-    if (builder.Configuration.GetValue<bool>("AutoMigrate"))
+    if (builder.Configuration.GetValue<bool>(ConfigurationKeys.AutoMigrate))
         db.Database.Migrate();
-    if (builder.Configuration.GetValue<bool>("SeedData"))
+    if (builder.Configuration.GetValue<bool>(ConfigurationKeys.SeedData))
         SeedData.InitializeDatabase(db);
 }
 
