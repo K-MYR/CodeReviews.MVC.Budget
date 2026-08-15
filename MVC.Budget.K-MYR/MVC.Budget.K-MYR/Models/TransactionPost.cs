@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace MVC.Budget.K_MYR.Models;
+
 [BindRequired]
 public class TransactionPost
 {
@@ -18,7 +19,7 @@ public class TransactionPost
     public DateTime DateTime { get; set; }
     [JsonRequired]
     [DataType(DataType.Currency)]
-    [Range(0.0, 100000000000000, ErrorMessage = $"'Amount' must be between 0 and 100000000000000.")] 
+    [Range(0.0, 100000000000000, ErrorMessage = $"'Amount' must be between 0 and 100000000000000.")]
     public decimal Amount { get; set; }
     [JsonRequired]
     public bool IsHappy { get; set; }

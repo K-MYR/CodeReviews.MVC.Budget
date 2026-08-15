@@ -22,7 +22,7 @@ public class TransactionsController(ITransactionsService transactionsService) : 
     }
 
     [HttpGet("Unevaluated")]
-    public async Task<ActionResult<Transaction>> GetUnevaluatedTransactions([FromQuery][Required] int categoryId, [FromQuery] int? lastId = null, [FromQuery] DateTime? lastDate = null,[FromQuery] int pageSize = 10)
+    public async Task<ActionResult<Transaction>> GetUnevaluatedTransactions([FromQuery][Required] int categoryId, [FromQuery] int? lastId = null, [FromQuery] DateTime? lastDate = null, [FromQuery] int pageSize = 10)
     {
         var transactions = await _transactionsService.GetUnevaluatedTransactions(categoryId, lastId, lastDate, pageSize);
 

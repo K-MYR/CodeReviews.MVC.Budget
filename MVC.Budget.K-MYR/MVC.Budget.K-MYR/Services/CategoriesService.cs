@@ -30,7 +30,7 @@ public class CategoriesService : ICategoriesService
     }
 
     public Task<Category?> GetCategoryWithBudgetLimit(int id, DateTime cutOffDate)
-    {       
+    {
         return _unitOfWork.CategoriesRepository.GetCategoryWithBudgetLimits(id, c => c.PreviousBudgets.Where(s => cutOffDate <= s.Month));
     }
 
@@ -84,7 +84,7 @@ public class CategoriesService : ICategoriesService
 
     public async Task UpdateCategory(Category category, CategoryPut categoryPut, DateTime month)
     {
-        if (categoryPut.Budget != category.Budget) 
+        if (categoryPut.Budget != category.Budget)
         {
             var currentBudget = category.PreviousBudgets.SingleOrDefault(b => b.Month.Year == month.Year && b.Month.Month == month.Month);
 
@@ -102,7 +102,7 @@ public class CategoriesService : ICategoriesService
                 currentBudget.Budget = categoryPut.Budget;
             }
 
-            if ((DateTime.UtcNow.Month == month.Month && DateTime.UtcNow.Year == month.Year) || 
+            if ((DateTime.UtcNow.Month == month.Month && DateTime.UtcNow.Year == month.Year) ||
                 !category.PreviousBudgets.Any(b => b.Month.Month != month.Month || b.Month.Year != month.Year))
             {
                 category.Budget = categoryPut.Budget;
@@ -118,5 +118,5 @@ public class CategoriesService : ICategoriesService
     {
         _unitOfWork.CategoriesRepository.Delete(category);
         await _unitOfWork.Save();
-    }    
+    }
 }

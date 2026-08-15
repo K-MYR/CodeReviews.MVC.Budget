@@ -20,7 +20,7 @@ public class FiscalPlansService : IFiscalPlansService
     }
 
     public Task<List<FiscalPlanDTO>> GetFiscalPlanDTOs(DateTime? month = null)
-    {        
+    {
         var date = month ?? DateTime.UtcNow;
         return _unitOfWork.FiscalPlansRepository.GetAllWithMonthlyData(date);
     }
@@ -43,9 +43,9 @@ public class FiscalPlansService : IFiscalPlansService
 
         decimal expensesTotal = 0, expensesBudget = 0, expensesHappyTotal = 0, expensesNecessaryTotal = 0, incomeTotal = 0, incomeBudget = 0, overspending = 0;
 
-        for(int i = 0; i < categorieData.Count; i++)
+        for (int i = 0; i < categorieData.Count; i++)
         {
-            var category  = categorieData[i];
+            var category = categorieData[i];
             if (category.CategoryType == 1)
             {
                 incomeCategories.Add(category);
@@ -84,7 +84,7 @@ public class FiscalPlansService : IFiscalPlansService
     {
         var categoryStatistics = await _unitOfWork.CategoriesRepository.GetCategoriesDataByYear(fiscalPlanId, year);
 
-        if(categoryStatistics.Count == 0)
+        if (categoryStatistics.Count == 0)
         {
             return new FiscalPlanYearDTO();
         }
@@ -117,7 +117,7 @@ public class FiscalPlansService : IFiscalPlansService
                 Month = group.Key
             };
 
-            foreach(var statistic in group)
+            foreach (var statistic in group)
             {
                 monthlyStatistic.TotalSpent += statistic.TotalSpent;
                 monthlyStatistic.HappyTransactions += statistic.HappyTransactions;
@@ -131,7 +131,7 @@ public class FiscalPlansService : IFiscalPlansService
                 monthlyStatistic.UnevaluatedTransactions += statistic.UnevaluatedTransactions;
 
                 totalSpent += statistic.TotalSpent;
-                happyEvaluatedTotal+= statistic.HappyEvaluatedTransactions;
+                happyEvaluatedTotal += statistic.HappyEvaluatedTransactions;
                 unhappyEvaluatedTotal += statistic.UnhappyEvaluatedTransactions;
                 necessaryEvaluatedTotal += statistic.NecessaryEvaluatedTransactions;
                 unnecessaryEvaluatedTotal += statistic.UnnecessaryEvaluatedTransactions;
@@ -160,8 +160,8 @@ public class FiscalPlansService : IFiscalPlansService
             UnnecessaryEvaluatedPerMonth = months.Select(month => statistics.TryGetValue(month, out var statistic) ? statistic.UnnecessaryEvaluatedTransactions : 0).ToList(),
             UnevaluatedPerMonth = months.Select(month => statistics.TryGetValue(month, out var statistic) ? statistic.UnevaluatedTransactions : 0).ToList(),
             MonthlyOverspendingPerCategory = monthlyOverspendingPerCategory
-        };    
-        
+        };
+
         return fiscalPlanDTO;
     }
 

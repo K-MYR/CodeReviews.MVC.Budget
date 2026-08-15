@@ -40,7 +40,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
-    if (builder.Configuration.GetValue<bool>("Auto-Migrate"))
+    if (builder.Configuration.GetValue<bool>("AutoMigrate"))
         db.Database.Migrate();
     if (builder.Configuration.GetValue<bool>("SeedData"))
         SeedData.InitializeDatabase(db);

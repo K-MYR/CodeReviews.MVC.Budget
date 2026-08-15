@@ -29,11 +29,11 @@ public class TransactionsService : ITransactionsService
 
         if (requestModel.OrderBy is not null)
         {
-            if(!OrderingHelpers.IsAllowedProperty(requestModel.OrderBy))
+            if (!OrderingHelpers.IsAllowedProperty(requestModel.OrderBy))
             {
                 return new Result<TransactionsSearchResponse>(new ValidationException($"'{requestModel.OrderBy}' is not a valid field for ordering."));
             }
-            
+
             bool IsAscendingOrder = (requestModel.OrderDirection == OrderDirection.Ascending) ^ requestModel.IsPrevious;
             string orderDirection = IsAscendingOrder ? "" : " DESC";
             string orderString = $"{requestModel.OrderBy}{orderDirection}, Id{orderDirection}";
@@ -78,7 +78,7 @@ public class TransactionsService : ITransactionsService
                 else
                 {
                     filter = q => q.Where($"Id {comparerSymbol} @0", requestModel.LastId);
-                }                
+                }
             }
         }
 
@@ -103,7 +103,7 @@ public class TransactionsService : ITransactionsService
             transactions.RemoveAt(transactions.Count - 1);
         }
 
-        if(requestModel.IsPrevious)
+        if (requestModel.IsPrevious)
         {
             transactions.Reverse();
         }
@@ -158,7 +158,7 @@ public class TransactionsService : ITransactionsService
         transaction.Amount = transactionPut.Amount;
         transaction.IsHappy = transactionPut.IsHappy;
         transaction.IsNecessary = transactionPut.IsNecessary;
-        transaction.DateTime = transactionPut.DateTime;        
+        transaction.DateTime = transactionPut.DateTime;
         transaction.IsEvaluated = transactionPut.IsEvaluated;
         transaction.PreviousIsNecessary = transactionPut.PreviousIsNecessary;
         transaction.PreviousIsHappy = transactionPut.PreviousIsHappy;

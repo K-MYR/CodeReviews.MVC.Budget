@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace MVC.Budget.K_MYR.Models;
+
 public class Transaction
 {
     public int Id { get; set; }
@@ -14,7 +15,7 @@ public class Transaction
     [DataType(DataType.DateTime)]
     public DateTime DateTime { get; set; }
     [DataType(DataType.Currency)]
-    [Range(0.0, 100000000000000, ErrorMessage = $"'Amount' must be between 0 and 100000000000000.")] 
+    [Range(0.0, 100000000000000, ErrorMessage = $"'Amount' must be between 0 and 100000000000000.")]
     public decimal Amount { get; set; }
     public bool IsHappy { get; set; }
     public bool IsNecessary { get; set; }

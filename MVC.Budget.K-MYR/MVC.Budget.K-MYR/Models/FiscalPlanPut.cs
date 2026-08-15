@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace MVC.Budget.K_MYR.Models;
+
 [BindRequired]
 public class FiscalPlanPut
 {

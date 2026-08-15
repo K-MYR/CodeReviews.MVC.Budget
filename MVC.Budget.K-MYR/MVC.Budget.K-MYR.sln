@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11822.322 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Budget.K-MYR", "MVC.Budget.K-MYR\MVC.Budget.K-MYR.csproj", "{696FC8E8-09B4-489B-8E69-C75D28B50234}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Budget.K-MYR.Configuration", "MVC.Budget.K-MYR.Configuration\MVC.Budget.K-MYR.Configuration.csproj", "{901F56CE-78D5-40DB-9C89-98F4DD758AE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{696FC8E8-09B4-489B-8E69-C75D28B50234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{696FC8E8-09B4-489B-8E69-C75D28B50234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{696FC8E8-09B4-489B-8E69-C75D28B50234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{901F56CE-78D5-40DB-9C89-98F4DD758AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{901F56CE-78D5-40DB-9C89-98F4DD758AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{901F56CE-78D5-40DB-9C89-98F4DD758AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{901F56CE-78D5-40DB-9C89-98F4DD758AE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

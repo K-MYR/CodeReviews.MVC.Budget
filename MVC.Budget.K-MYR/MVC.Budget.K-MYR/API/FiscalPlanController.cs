@@ -34,13 +34,13 @@ public class FiscalPlanController : ControllerBase
     [HttpGet("{id:int}/MonthlyData")]
     public async Task<ActionResult<FiscalPlanMonthDTO>> GetDataByMonth([FromRoute] int id, [FromQuery] DateTime? Month)
     {
-       var fiscalPlan = await _fiscalPlanService.GetByIDAsync(id);
+        var fiscalPlan = await _fiscalPlanService.GetByIDAsync(id);
 
-        if(fiscalPlan is null)
-        { 
-            return NotFound(); 
+        if (fiscalPlan is null)
+        {
+            return NotFound();
         }
-        
+
         FiscalPlanMonthDTO fiscalPlanDTO = await _fiscalPlanService.GetDataByMonth(fiscalPlan, Month ?? DateTime.UtcNow);
 
         return Ok(fiscalPlanDTO);

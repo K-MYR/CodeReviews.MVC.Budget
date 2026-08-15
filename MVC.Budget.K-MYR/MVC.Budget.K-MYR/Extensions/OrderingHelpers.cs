@@ -23,7 +23,7 @@ public static class OrderingHelpers
 
     public static PropertyInfo? GetProperty<T>(string propertyName)
     {
-        if(_cache.TryGetValue(propertyName, out var cached))
+        if (_cache.TryGetValue(propertyName, out var cached))
         {
             return cached;
         }
@@ -43,7 +43,7 @@ public static class OrderingHelpers
             type = propertyInfo.PropertyType;
         }
 
-        if(propertyInfo is not null)
+        if (propertyInfo is not null)
         {
             _cache.TryAdd(propertyName, propertyInfo);
         }

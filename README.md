@@ -6,7 +6,7 @@
 
 ---
 
-## Requirements
+## :clipboard: Requirements
 
 :heavy_check_mark: This application allows users to record personal finance transactions.  
 :heavy_check_mark: There should be two linked tables: Transaction and Category.  
@@ -19,7 +19,7 @@
 
 ---
 
-## 🧭 Project Description
+## :bookmark_tabs: Project Description
 
 This project expands upon the final assignment for the ASP.NET Core MVC module.  
 Beyond fulfilling the standard requirements, the application aims to promote **mindful spending** by helping users reflect on their financial habits.

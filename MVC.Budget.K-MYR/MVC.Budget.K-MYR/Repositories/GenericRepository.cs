@@ -3,6 +3,7 @@ using MVC.Budget.K_MYR.Data;
 using System.Linq.Expressions;
 
 namespace MVC.Budget.K_MYR.Repositories;
+
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {
     protected readonly DatabaseContext _context;
@@ -67,6 +68,6 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public virtual void Delete(TEntity entity)
     {
-         _dbSet.Remove(entity);
+        _dbSet.Remove(entity);
     }
 }

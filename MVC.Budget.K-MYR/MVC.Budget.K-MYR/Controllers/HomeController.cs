@@ -68,7 +68,7 @@ public class HomeController(ILogger<HomeController> logger, IFiscalPlansService 
     }
 
     [HttpGet("FiscalPlan/{id:int}")]
-    public async Task<IActionResult> FiscalPlan([FromRoute]int id, [FromQuery] DateTime? Month)
+    public async Task<IActionResult> FiscalPlan([FromRoute] int id, [FromQuery] DateTime? Month)
     {
         var fiscalPlan = await _fiscalPlanService.GetByIDAsync(id);
 
@@ -86,9 +86,9 @@ public class HomeController(ILogger<HomeController> logger, IFiscalPlansService 
 
         FiscalPlanViewModel fiscalPlanModel = new()
         {
-            FiscalPlan = fiscalPlanDTO,     
+            FiscalPlan = fiscalPlanDTO,
             Categories = categories,
-            Category = new (),
+            Category = new(),
             Transaction = new(),
             Search = new()
             {
@@ -100,7 +100,7 @@ public class HomeController(ILogger<HomeController> logger, IFiscalPlansService 
         LayoutModel<FiscalPlanViewModel> viewModel = new(fiscalPlanModel, culture, currency);
 
         return View(viewModel);
-    }    
+    }
 
     [HttpGet("Category/{id}")]
     public async Task<IActionResult> Category([FromRoute] int id, [FromQuery] DateTime? Month)
@@ -118,11 +118,11 @@ public class HomeController(ILogger<HomeController> logger, IFiscalPlansService 
             Transaction = new(),
         };
 
-        LayoutModel <CategoryViewModel> viewModel = new(categoryModel, culture, currency);
+        LayoutModel<CategoryViewModel> viewModel = new(categoryModel, culture, currency);
 
         return View(viewModel);
     }
-   
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -138,7 +138,7 @@ public class HomeController(ILogger<HomeController> logger, IFiscalPlansService 
         {
             try
             {
-                regionInfo = new RegionInfo(locale);                
+                regionInfo = new RegionInfo(locale);
             }
             catch (Exception)
             {

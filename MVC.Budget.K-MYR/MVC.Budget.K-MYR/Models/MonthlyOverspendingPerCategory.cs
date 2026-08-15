@@ -1,4 +1,5 @@
 ﻿namespace MVC.Budget.K_MYR.Models;
+
 public class MonthlyOverspendingPerCategory
 {
     public string Category { get; set; }

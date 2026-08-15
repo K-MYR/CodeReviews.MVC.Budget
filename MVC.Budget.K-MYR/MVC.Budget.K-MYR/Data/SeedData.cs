@@ -1,15 +1,16 @@
 ﻿using MVC.Budget.K_MYR.Models;
 
 namespace MVC.Budget.K_MYR.Data;
+
 public static class SeedData
 {
     public static readonly Random Random = new();
     public static readonly DateTime Now = DateTime.UtcNow;
     public static void InitializeDatabase(DatabaseContext context)
     {
-        context.Database.EnsureCreated();  
-        
-        if(context.FiscalPlans.Any())
+        context.Database.EnsureCreated();
+
+        if (context.FiscalPlans.Any())
         {
             return;
         }
@@ -95,7 +96,7 @@ public static class SeedData
             {
                 Name = "Heating & Electricity",
                 Budget = 100,
-                Transactions = GenerateTransactions(70, 120, 1, ["Heating & Electricity"]), 
+                Transactions = GenerateTransactions(70, 120, 1, ["Heating & Electricity"]),
                 PreviousBudgets =
                 [
                     new()
