@@ -166,3 +166,35 @@ Copy-Item `
     -Force
 
 Write-Host "Runtime files copied successfully."
+
+Write-Host "Creating distribution archive..."
+
+$archivePath = Join-Path $root "Spendwise.zip"
+$tempPackageDirectory = Join-Path $root ".package-temp"
+$tempSpendwiseDirectory = Join-Path $tempPackageDirectory "Spendwise"
+
+if (Test-Path $archivePath) {
+    Remove-Item $archivePath -Force
+}
+
+if (Test-Path $tempPackageDirectory) {
+    Remove-Item $tempPackageDirectory -Recurse -Force
+}
+
+New-Item -ItemType Directory -Path $tempSpendwiseDirectory -Force | Out-Null
+
+Copy-Item `
+    -Path (Join-Path $dist "*") `
+    -Destination $tempSpendwiseDirectory `
+    -Recurse `
+    -Force
+
+Compress-Archive `
+    -Path (Join-Path $tempPackageDirectory "*") `
+    -DestinationPath $archivePath `
+    -CompressionLevel Optimal
+
+Remove-Item $tempPackageDirectory -Recurse -Force
+
+Write-Host "Distribution archive created:"
+Write-Host $archivePath
