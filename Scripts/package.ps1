@@ -56,6 +56,32 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Spendwise image saved successfully."
 
+Write-Host "Creating Docker image manifest..."
+
+$spendwiseImageId = docker image inspect spendwise:latest --format "{{.Id}}"
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to get Spendwise image ID."
+}
+
+$sqlServerImageId = docker image inspect mcr.microsoft.com/mssql/server:2022-latest --format "{{.Id}}"
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to get SQL Server image ID."
+}
+
+$imageManifest = @{
+    spendwise = $spendwiseImageId.Trim()
+    sqlserver = $sqlServerImageId.Trim()
+} | ConvertTo-Json
+
+Set-Content `
+    -Path (Join-Path $dist "image-manifest.json") `
+    -Value $imageManifest `
+    -Encoding UTF8
+
+Write-Host "Docker image manifest created."
+
 Write-Host "Publishing configuration tool..."
 
 $configurationProject = Join-Path $root "MVC.Budget.K-MYR\MVC.Budget.K-MYR.Configuration\MVC.Budget.K-MYR.Configuration.csproj"
