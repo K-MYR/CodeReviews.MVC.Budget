@@ -482,4 +482,6 @@ $RECYCLE.BIN/
 
 # Generated distribution package
 dist/
+Spendwise.zip
+.package-temp/
 
