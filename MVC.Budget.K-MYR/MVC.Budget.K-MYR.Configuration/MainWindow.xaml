@@ -56,14 +56,7 @@
                     <TextBlock Text="Database"
                            FontSize="16"
                            FontWeight="SemiBold"
-                           Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Database Connection String"
-                           Margin="0,0,0,5"/>
-
-                    <TextBox Text="{Binding Configuration.ConnectionStrings.DatabaseConnectionString, UpdateSourceTrigger=PropertyChanged}"
-                         Height="30"
-                         Padding="5"/>
+                           Margin="0,0,0,10"/>                    
 
                     <CheckBox Content="Automatically migrate database"
                           IsChecked="{Binding Configuration.AutoMigrate}"

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.6.11822.322 stable
+VisualStudioVersion = 18.6.11822.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Budget.K-MYR", "MVC.Budget.K-MYR\MVC.Budget.K-MYR.csproj", "{696FC8E8-09B4-489B-8E69-C75D28B50234}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Budget.K-MYR.Common", "MVC.Budget.K-MYR.Common\MVC.Budget.K-MYR.Common.csproj", "{186F8E13-1A93-4D5B-8D9F-13CDC5471114}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Budget.K-MYR.Launcher", "MVC.Budget.K-MYR.Launcher\MVC.Budget.K-MYR.Launcher.csproj", "{2169B4CE-0B8D-48C3-A163-6596BEF288DD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Spendwise.Installer", "Spendwise.Installer\Spendwise.Installer.vdproj", "{4619F6B7-9DB8-4C47-D650-E78BB06BF0BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,8 @@ Global
 		{2169B4CE-0B8D-48C3-A163-6596BEF288DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2169B4CE-0B8D-48C3-A163-6596BEF288DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2169B4CE-0B8D-48C3-A163-6596BEF288DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4619F6B7-9DB8-4C47-D650-E78BB06BF0BB}.Debug|Any CPU.ActiveCfg = Debug
+		{4619F6B7-9DB8-4C47-D650-E78BB06BF0BB}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -99,22 +99,6 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Configuration tool published successfully."
 
-Write-Host "Creating configuration tool shortcut..."
-
-$shortcutPath = Join-Path $dist "Spendwise.Configuration.lnk"
-$targetPath = Join-Path $configTool "Spendwise.Configuration.exe"
-
-$wshShell = New-Object -ComObject WScript.Shell
-$shortcut = $wshShell.CreateShortcut($shortcutPath)
-
-$shortcut.TargetPath = $targetPath
-$shortcut.WorkingDirectory = $configTool
-$shortcut.Description = "Spendwise Configuration"
-
-$shortcut.Save()
-
-Write-Host "Configuration tool shortcut created."
-
 Write-Host "Publishing Spendwise launcher..."
 
 $launcherProject = Join-Path $root "MVC.Budget.K-MYR\MVC.Budget.K-MYR.Launcher\MVC.Budget.K-MYR.Launcher.csproj"
@@ -131,22 +115,6 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "Spendwise launcher published successfully."
-
-Write-Host "Creating Spendwise launcher shortcut..."
-
-$launcherShortcutPath = Join-Path $dist "Spendwise.lnk"
-$launcherExecutablePath = Join-Path $launcherDirectory "Spendwise.Launcher.exe"
-
-$wshShell = New-Object -ComObject WScript.Shell
-$launcherShortcut = $wshShell.CreateShortcut($launcherShortcutPath)
-
-$launcherShortcut.TargetPath = $launcherExecutablePath
-$launcherShortcut.WorkingDirectory = $launcherDirectory
-$launcherShortcut.Description = "Start Spendwise"
-
-$launcherShortcut.Save()
-
-Write-Host "Spendwise launcher shortcut created."
 
 Write-Host "Copying runtime files..."
 
@@ -167,34 +135,5 @@ Copy-Item `
 
 Write-Host "Runtime files copied successfully."
 
-Write-Host "Creating distribution archive..."
-
-$archivePath = Join-Path $root "Spendwise.zip"
-$tempPackageDirectory = Join-Path $root ".package-temp"
-$tempSpendwiseDirectory = Join-Path $tempPackageDirectory "Spendwise"
-
-if (Test-Path $archivePath) {
-    Remove-Item $archivePath -Force
-}
-
-if (Test-Path $tempPackageDirectory) {
-    Remove-Item $tempPackageDirectory -Recurse -Force
-}
-
-New-Item -ItemType Directory -Path $tempSpendwiseDirectory -Force | Out-Null
-
-Copy-Item `
-    -Path (Join-Path $dist "*") `
-    -Destination $tempSpendwiseDirectory `
-    -Recurse `
-    -Force
-
-Compress-Archive `
-    -Path (Join-Path $tempPackageDirectory "*") `
-    -DestinationPath $archivePath `
-    -CompressionLevel Optimal
-
-Remove-Item $tempPackageDirectory -Recurse -Force
-
-Write-Host "Distribution archive created:"
-Write-Host $archivePath
+Write-Host "Distribution directory ready:"
+Write-Host $dist
