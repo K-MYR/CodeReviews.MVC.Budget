@@ -36,7 +36,7 @@ public sealed class TransactionsRepository : GenericRepository<Transaction>, ITr
         if (searchModel.MaxAmount is not null)
             query = query.Where(t => t.Amount <= searchModel.MaxAmount);
 
-        if (!String.IsNullOrEmpty(searchModel.SearchString))
+        if (!string.IsNullOrEmpty(searchModel.SearchString))
             query = query.Where(t => t.Title.Contains(searchModel.SearchString.Trim()));
 
         if (orderBy is not null)

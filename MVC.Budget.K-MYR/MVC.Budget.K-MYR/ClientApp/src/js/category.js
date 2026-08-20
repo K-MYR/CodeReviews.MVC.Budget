@@ -16,15 +16,17 @@ const modalsPromise = importBootstrapModals()
 const collapsesPromise = importBootstrapCollapses()
     .then(() => {
         $('.accordion-head').on('click keydown', function (event) {
-            if (event.type === 'click' || event.type === 'keydown' && event.key === 'Enter') {
-                if (event.target.id !== 'addTransaction-button') {
-                    let collapse = $(this).next();
-                    if (!collapse[0].classList.contains('collapsing')) {
-                        collapse.collapse('toggle');
-                        let caret = $('.accordion-caret', this)[0];
-                        caret.classList.toggle('rotate');
-                    }
-                }
+            if (!event.type === 'click' && !(event.type === 'keydown' && event.key === 'Enter')) {
+                return
+            }
+            if (event.target.id === 'addTransaction-button') {
+                return;
+            }
+            let collapse = $(this).next();
+            if (!collapse[0].classList.contains('collapsing')) {
+                collapse.collapse('toggle');
+                let caret = $('.accordion-caret', this)[0];
+                caret.classList.toggle('rotate');            
             }
         });
     })
@@ -84,7 +86,6 @@ async function setupDataTableHandlers(dashboardPromise, modalsPromise) {
     const idDelete = document.getElementById('deleteTransaction_id');
     table.on('click keydown', 'svg', function (event) {
         if (event.type === 'click' || event.type === 'keydown' && event.key === 'Enter') {
-
             const row = table.row(event.target.closest('tr'));
             const data = row.data();
             switch (this.dataset.icon) {

@@ -11,7 +11,7 @@ export default class CategoryDashboard {
     initPromise;
     #monthPicker;
     #sentimentChart;
-    #necessityChart;    
+    #necessityChart;
     table;
     #budgetHeader;
     #differenceHeader;
@@ -113,7 +113,7 @@ export default class CategoryDashboard {
         this.#monthPicker = await getDatePicker("#monthSelector", "month")
         this.#monthPicker.datepicker('setDate', date.toISOString());
         this.#monthPicker.on('changeDate', async () => {
-            this.#refresh(this.#monthPicker.datepicker('getUTCDate'));            
+            this.#refresh(this.#monthPicker.datepicker('getUTCDate'));
         });
 
         $('.monthPicker .calendar-button').on('click', function () {
@@ -147,7 +147,7 @@ export default class CategoryDashboard {
                     let lastId = null;
                     let lastValue = null;
                     let orderBy = null;
-                    let orderDirection = null;                    
+                    let orderDirection = null;
 
                     if (data.order?.[0]) {
                         orderBy = data.order[0].name;
@@ -175,7 +175,7 @@ export default class CategoryDashboard {
 
                     const date = self.#monthPicker.datepicker('getUTCDate');
                     const start = new Date(Date.UTC(date.getFullYear(), date.getMonth()));
-                    const end = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 1));                  
+                    const end = new Date(Date.UTC(date.getFullYear(), date.getMonth() + 1, 1));
                     end.setMilliseconds(-1);
                     const requestData = {
                         draw: data.draw,
@@ -296,11 +296,11 @@ export default class CategoryDashboard {
             } else {
                 messageBox.addAndShow(response.message, '#cross-icon');
             }
-            
+
         } finally {
             this.#isLoading = false;
         }
-    } 
+    }
 
     async #getData(id, date, type) {
         const data = await getCategoryDataByMonth(id, date, type);
@@ -337,7 +337,7 @@ export default class CategoryDashboard {
             differenceHeading = isIncomeCategory ? "Surplus" : "Overspending";
         } else {
             differenceHeading = isIncomeCategory ? "Pending" : "Available";
-        }       
+        }
 
         this.#budgetHeader.textContent = `${budgetHeading}: ${window.userNumberFormat.format(budget)}`;
         this.#totalHeader.textContent = `${totalHeading}: ${window.userNumberFormat.format(dataObj.total)}`;
@@ -375,7 +375,7 @@ export default class CategoryDashboard {
             }
             if (transaction.isNecessary) {
                 this.#data.necessaryTotal += transaction.amount;
-            }     
+            }
 
             this.#formatHeaders();
             this.#formatCharts();
@@ -385,14 +385,19 @@ export default class CategoryDashboard {
 
     editTransaction(oldTransaction, newAmount, newIsHappy, newIsNecessary, newDate) {
         const oldDate = new Date(oldTransaction.dateTime);
-        if (oldDate.getYear() === newDate.getYear() && oldDate.getMonth() === newDate.getMonth()) {
+        const currentDate = this.getCurrentMonthUTC();        
+
+        if (newDate.getYear() === currentDate.getYear() && newDate.getMonth() === currentDate.getMonth()) {
             this.#data.total += newAmount;
-            this.#data.happyTotal += newIsHappy * newAmount     
+            this.#data.happyTotal += newIsHappy * newAmount
             this.#data.necessaryTotal += newIsNecessary * newAmount;
         }
-        this.#data.total -= oldTransaction.amount;
-        this.#data.happyTotal -= oldTransaction.isHappy * oldTransaction.amount
-        this.#data.necessaryTotal -= oldTransaction.isNecessary * oldTransaction.amount
+
+        if (oldDate.getYear() === currentDate.getYear() && oldDate.getMonth() === currentDate.getMonth()) {
+            this.#data.total -= oldTransaction.amount;
+            this.#data.happyTotal -= oldTransaction.isHappy * oldTransaction.amount
+            this.#data.necessaryTotal -= oldTransaction.isNecessary * oldTransaction.amount
+        }
 
         this.#formatHeaders();
         this.#formatCharts();

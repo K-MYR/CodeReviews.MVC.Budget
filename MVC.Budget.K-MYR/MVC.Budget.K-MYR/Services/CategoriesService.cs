@@ -37,10 +37,7 @@ public class CategoriesService : ICategoriesService
     public async Task<CategoryMonthDTO?> GetCategoryDataByMonth(int id, DateTime month)
     {
         var categoryDTO = await _unitOfWork.CategoriesRepository.GetCategoryDataByMonth(id, month);
-        if (categoryDTO != null)
-        {
-            categoryDTO.Month = month;
-        }
+        categoryDTO?.Month = month;
         return categoryDTO;
     }
 
@@ -66,14 +63,14 @@ public class CategoriesService : ICategoriesService
             FiscalPlanId = categoryPost.FiscalPlanId,
         };
 
-        var categoryStatistics = new CategoryBudget()
+        var categoryBudget = new CategoryBudget()
         {
             CategoryId = category.Id,
             Budget = category.Budget,
             Month = DateTime.UtcNow
         };
 
-        category.PreviousBudgets.Add(categoryStatistics);
+        category.PreviousBudgets.Add(categoryBudget);
 
         _unitOfWork.CategoriesRepository.Insert(category);
 

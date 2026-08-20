@@ -42,6 +42,7 @@ public class TransactionsService : ITransactionsService
             if (requestModel.LastId is not null)
             {
                 string comparerSymbol = IsAscendingOrder ? ">" : "<";
+                filter = q => q.Where($"Id {comparerSymbol} @0", requestModel.LastId);
 
                 if (requestModel.LastValue is not null)
                 {
@@ -74,10 +75,6 @@ public class TransactionsService : ITransactionsService
                     {
                         return new Result<TransactionsSearchResponse>(new ValidationException($"Failed to convert '{requestModel.LastValue}' to the expected type '{type.Name}'."));
                     }
-                }
-                else
-                {
-                    filter = q => q.Where($"Id {comparerSymbol} @0", requestModel.LastId);
                 }
             }
         }
