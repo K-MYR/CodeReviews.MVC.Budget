@@ -47,11 +47,20 @@ Interactive charts visualize **monthly and yearly statistics**, allowing users t
 
 ### Installation Steps
 
+# Local
 1. Restore NuGet packages.  
 2. Configure your SQL Server connection string in `appsettings.json`.  
 3. No npm installation required — all static resources are bundled.  
 4. If `SeedData` and `Auto-Migrate` are set to `true` in `appsettings.json`,  
    the latest migrations will be automatically applied and sample data inserted.
+
+# Docker
+1. Download `setup.exe` and `Spendwise.Installer.msi` from the [release page]('https://github.com/K-MYR/CodeReviews.MVC.Budget/releases').
+2. Run `setup.exe`.
+3. Go to your installation folder, copy `.env.example` and rename it to `.env`.
+4. Set your database password in .env
+5. Start Docker Desktop
+6. Start Spendwise.Launcher or Spendwise.Configuration (Changes to the settings don`t apply at runtime).
 
 ---
 ## 🧩 Usage Guide
